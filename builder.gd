@@ -17,16 +17,17 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		camera_arm.rotation.y += -event.relative.x * mouse_sens
-		camera_arm.rotation.x += -event.relative.y * mouse_sens
-		camera_arm.rotation_degrees.x = clamp(camera_arm.rotation_degrees.x,-90,90)
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			cam.position.z -= event.factor * scroll_sens
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			cam.position.z += event.factor * scroll_sens
-		cam.position.z = clamp(cam.position.z,1,15)
+	if player.building:
+		if event is InputEventMouseMotion:
+			camera_arm.rotation.y += -event.relative.x * mouse_sens
+			camera_arm.rotation.x += -event.relative.y * mouse_sens
+			camera_arm.rotation_degrees.x = clamp(camera_arm.rotation_degrees.x,-90,90)
+		if event is InputEventMouseButton and event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				cam.position.z -= event.factor * scroll_sens
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				cam.position.z += event.factor * scroll_sens
+			cam.position.z = clamp(cam.position.z,1,15)
 
 func _process(delta: float) -> void:
 	if player.building:
@@ -41,6 +42,7 @@ func _process(delta: float) -> void:
 			current_block_index -= 1
 		if Input.is_action_just_pressed("cycle block right"):
 			current_block_index += 1
+		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
 		if Input.is_action_just_pressed("build part"):
 			var part = blocks[current_block_index].instantiate()

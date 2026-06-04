@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b4e8sbk4mtxav" path="res://block.tscn" id="3_nebbf"]
 [ext_resource type="PackedScene" uid="uid://b04wdl6v6rdda" path="res://wheel.tscn" id="4_h00wr"]
 [ext_resource type="PackedScene" uid="uid://u2vndig3hjmo" path="res://wheel(steer).tscn" id="5_ucbhk"]
+[ext_resource type="Script" uid="uid://gissbbh2t35s" path="res://vehicle.gd" id="6_ucbhk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -33,6 +34,13 @@ environment = SubResource("Environment_h00wr")
 
 [node name="Vehicle" type="VehicleBody3D" parent="." unique_id=1733489642]
 freeze = true
+script = ExtResource("6_ucbhk")
+
+[node name="Camera Arm" type="SpringArm3D" parent="Vehicle" unique_id=1343443648]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+spring_length = 2.0
+
+[node name="Cam" type="Camera3D" parent="Vehicle/Camera Arm" unique_id=1275216196]
 
 [node name="Camera Arm" type="Node3D" parent="." unique_id=174607145]
 
