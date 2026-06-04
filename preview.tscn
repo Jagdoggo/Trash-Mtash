@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b0ti3tqxspkg2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cn6ar"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.5019608)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2gyu8"]
+material = SubResource("StandardMaterial3D_cn6ar")
+
+[node name="Preview" type="MeshInstance3D" unique_id=204736288]
+mesh = SubResource("BoxMesh_2gyu8")

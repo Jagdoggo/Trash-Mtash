@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cxt5fpc6xlyvs"]
 
 [ext_resource type="PackedScene" uid="uid://ckkoffyeupk5j" path="res://mtash_man.tscn" id="1_a202f"]
+[ext_resource type="PackedScene" uid="uid://r86ooiu7b0fl" path="res://builder.tscn" id="2_noarx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,4 +50,9 @@ mesh = SubResource("BoxMesh_i5arm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1869685724]
 shape = SubResource("BoxShape3D_wc5p8")
 
-[node name="Mtash Man" parent="." unique_id=120742675 instance=ExtResource("1_a202f")]
+[node name="Mtash Man" parent="." unique_id=120742675 node_paths=PackedStringArray("builder") instance=ExtResource("1_a202f")]
+builder = NodePath("../Builder")
+
+[node name="Builder" parent="." unique_id=667126995 node_paths=PackedStringArray("player") instance=ExtResource("2_noarx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 500, 0)
+player = NodePath("../Mtash Man")
