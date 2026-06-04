@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://u2vndig3hjmo"]
+
+[node name="Wheel(steer)" type="VehicleWheel3D" unique_id=1001268959]
+use_as_traction = true
+use_as_steering = true

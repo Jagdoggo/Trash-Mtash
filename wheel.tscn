@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://b04wdl6v6rdda"]
+
+[node name="Wheel" type="VehicleWheel3D" unique_id=376329292]
+use_as_traction = true

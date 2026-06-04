@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ckkoffyeupk5j"]
+
+[ext_resource type="Script" uid="uid://b603rqywi8d8" path="res://mtash_man.gd" id="1_syic7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cos4b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_syic7"]
+
+[node name="Mtash Man" type="CharacterBody3D" unique_id=120742675]
+script = ExtResource("1_syic7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=364403120]
+mesh = SubResource("CapsuleMesh_cos4b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2026780061]
+shape = SubResource("CapsuleShape3D_syic7")
+
+[node name="Camera Arm" type="SpringArm3D" parent="." unique_id=1617938015]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+spring_length = 2.0
+
+[node name="Cam" type="Camera3D" parent="Camera Arm" unique_id=1662631861]

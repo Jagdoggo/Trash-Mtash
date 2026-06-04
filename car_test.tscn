@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://d2bropeqwfu8j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4xowi"]
+size = Vector3(1, 1, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a202f"]
+size = Vector3(1, 1, 3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_noarx"]
+height = 0.1
+
+[node name="Car Test" type="VehicleBody3D" unique_id=1734504889]
+engine_force = 500.0
+steering = 0.5235988
+
+[node name="Part 1" type="CollisionShape3D" parent="." unique_id=1125301377]
+shape = SubResource("BoxShape3D_4xowi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Part 1" unique_id=1902354854]
+mesh = SubResource("BoxMesh_a202f")
+
+[node name="Part 2" type="VehicleWheel3D" parent="." unique_id=1135237545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
+engine_force = 500.0
+steering = 0.5235988
+use_as_traction = true
+use_as_steering = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Part 2" unique_id=24810656]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_noarx")
+
+[node name="Part 3" type="VehicleWheel3D" parent="." unique_id=1280142428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+engine_force = 500.0
+steering = 0.5235988
+use_as_traction = true
+use_as_steering = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Part 3" unique_id=844296439]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_noarx")
+
+[node name="Part 4" type="VehicleWheel3D" parent="." unique_id=1277686619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+engine_force = 500.0
+use_as_traction = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Part 4" unique_id=1230271]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_noarx")
+
+[node name="Part 5" type="VehicleWheel3D" parent="." unique_id=222854182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+engine_force = 500.0
+use_as_traction = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Part 5" unique_id=1807719465]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_noarx")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1121436176]
+transform = Transform3D(-1, 6.246118e-08, -6.116651e-08, 0, 0.69966334, 0.71447265, 8.742278e-08, 0.71447265, -0.69966334, 0, 2.96, -2.879)

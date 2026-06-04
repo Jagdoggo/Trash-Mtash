@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cxt5fpc6xlyvs"]
+
+[ext_resource type="PackedScene" uid="uid://ckkoffyeupk5j" path="res://mtash_man.tscn" id="1_a202f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_a202f"]
+sky_material = SubResource("ProceduralSkyMaterial_4xowi")
+
+[sub_resource type="Environment" id="Environment_noarx"]
+background_mode = 2
+sky = SubResource("Sky_a202f")
+tonemap_mode = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a0tk4"]
+frequency = 0.5572
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r3fl7"]
+noise = SubResource("FastNoiseLite_a0tk4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
+albedo_texture = SubResource("NoiseTexture2D_r3fl7")
+
+[sub_resource type="BoxMesh" id="BoxMesh_i5arm"]
+material = SubResource("StandardMaterial3D_jka67")
+size = Vector3(500, 1, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wc5p8"]
+size = Vector3(500, 1, 500)
+
+[node name="Node3D" type="Node3D" unique_id=1951610600]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1862191061]
+environment = SubResource("Environment_noarx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1796173950]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.2
+shadow_enabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=542966281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=44807774]
+mesh = SubResource("BoxMesh_i5arm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1869685724]
+shape = SubResource("BoxShape3D_wc5p8")
+
+[node name="Mtash Man" parent="." unique_id=120742675 instance=ExtResource("1_a202f")]
