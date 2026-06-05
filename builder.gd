@@ -10,6 +10,7 @@ class_name Builder
 @onready var camera_arm: Node3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 @onready var preview: MeshInstance3D = $Preview
+@onready var current_parent : Node3D = $Vehicle
 
 var current_block_index : int = 0
 
@@ -42,9 +43,19 @@ func _process(delta: float) -> void:
 			current_block_index -= 1
 		if Input.is_action_just_pressed("cycle block right"):
 			current_block_index += 1
+		if Input.is_action_just_pressed("delete part"):
+			for child in vehicle.get_children():
+				if preview.position.distance_squared_to(child.position) < 0.25 and child is not MeshInstance3D:
+					child.queue_free()
+		if Input.is_action_just_pressed("set parent"):
+			for child in vehicle.get_children():
+				if preview.position.distance_squared_to(child.position) < 0.25 and child is Servo:
+					current_parent = child.rotation_point
+		if Input.is_action_just_pressed("reset parent"):
+			current_parent = $Vehicle
 		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
 		if Input.is_action_just_pressed("build part"):
 			var part = blocks[current_block_index].instantiate()
 			part.position = preview.position
-			$Vehicle.add_child(part)
+			current_parent.add_child(part)

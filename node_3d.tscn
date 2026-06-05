@@ -16,13 +16,14 @@ sky = SubResource("Sky_a202f")
 tonemap_mode = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a0tk4"]
-frequency = 0.5572
+frequency = 0.0225
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r3fl7"]
 noise = SubResource("FastNoiseLite_a0tk4")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
 albedo_texture = SubResource("NoiseTexture2D_r3fl7")
+uv1_scale = Vector3(64, 64, 64)
 
 [sub_resource type="BoxMesh" id="BoxMesh_i5arm"]
 material = SubResource("StandardMaterial3D_jka67")

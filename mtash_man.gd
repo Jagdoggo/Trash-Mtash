@@ -50,13 +50,18 @@ func _physics_process(delta: float) -> void:
 	if not building:
 		if Input.is_action_just_pressed("drive"):
 			if driving:
+				collision_layer = 1
+				collision_mask = 1
 				driving = false
 				cam.current = true
 				vehicle.cam.current = false
 			else:
+				collision_layer = 0
+				collision_mask = 0
 				driving = true
 				cam.current = false
-				vehicle.cam.current = true
+				if vehicle.cam:
+					vehicle.cam.current = true
 		if not driving:
 			if Input.is_action_just_pressed("jump") and is_on_floor():
 				velocity.y = jump_vel
@@ -70,4 +75,6 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				velocity.z = move_toward(velocity.z, 0, SPEED)
+		else:
+			position = vehicle.position + Vector3(0,2,0)
 	move_and_slide()
