@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("delete part"):
 			for child in vehicle.get_children():
 				if preview.position.distance_squared_to(child.position) < 0.25:
-					if child.get_parent() != self:
+					if child.get_parent() != $Vehicle:
 						var index = $Vehicle.parented_parts.find(child)
 						$Vehicle.parented_parts.remove_at(index)
 						$Vehicle.reparented_parts.remove_at(index)
@@ -58,6 +58,14 @@ func _process(delta: float) -> void:
 			for child in vehicle.get_children():
 				if preview.position.distance_squared_to(child.position) < 0.25 and child is Servo:
 					current_parent = child.rotation_point
+		var y = int(Input.is_action_just_pressed("rotate +y")) - int(Input.is_action_just_pressed("rotate -y"))
+		var x = int(Input.is_action_just_pressed("rotate +x")) - int(Input.is_action_just_pressed("rotate -x"))
+		var z = int(Input.is_action_just_pressed("rotate +z")) - int(Input.is_action_just_pressed("rotate -z"))
+		for child in vehicle.get_children():
+			if preview.position.distance_squared_to(child.position) < 0.25:
+				child.rotate_y(y * 1.5708)
+				child.rotate_x(x * 1.5708)
+				child.rotate_z(z * 1.5708)
 		if Input.is_action_just_pressed("reset parent"):
 			current_parent = $Vehicle
 		if not current_parent:

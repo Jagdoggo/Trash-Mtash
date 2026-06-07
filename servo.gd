@@ -2,7 +2,7 @@ extends CollisionShape3D
 class_name Servo
 
 @export var rotation_point : Node3D
-@export var speed : float = 30
+@export var speed : float = 60
 
 func _process(delta: float) -> void:
 	var input = float(Input.get_axis("servo back","servo forward"))

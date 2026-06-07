@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://dqw1frx8hmdrv"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cl7vd"]
-points = PackedVector3Array(-0.5079365, -0.50793654, -0.50793654, 0.507921, 0.50793654, 0.50793654, 0.507921, 0.50793654, -0.50793654, 0.49998456, -0.5, 0.5, -0.5079365, -0.4761159, 0.50793654, 0.49998456, -0.5, -0.5, 0.47610083, 0.50793654, -0.50793654, -0.5079365, -0.50793654, 0.50793654, 0.47610083, 0.50793654, 0.50793654, -0.5079365, -0.4761159, -0.50793654)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cl7vd"]
+data = PackedVector3Array(0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="PrismMesh" id="PrismMesh_5fwem"]
 left_to_right = 1.0
 
 [node name="1x1 Slope" type="CollisionShape3D" unique_id=767567029]
-shape = SubResource("ConvexPolygonShape3D_cl7vd")
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_cl7vd")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
 mesh = SubResource("PrismMesh_5fwem")

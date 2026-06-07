@@ -23,6 +23,10 @@ background_mode = 2
 sky = SubResource("Sky_nebbf")
 tonemap_mode = 2
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u3nas"]
+friction = 1.2
+rough = true
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uvuy"]
 bg_color = Color(0, 0, 0, 1)
 border_color = Color(1, 1, 1, 1)
@@ -50,6 +54,7 @@ shadow_enabled = true
 environment = SubResource("Environment_h00wr")
 
 [node name="Vehicle" type="VehicleBody3D" parent="." unique_id=1733489642]
+physics_material_override = SubResource("PhysicsMaterial_u3nas")
 freeze = true
 script = ExtResource("6_ucbhk")
 
