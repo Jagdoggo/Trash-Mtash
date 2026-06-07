@@ -38,10 +38,27 @@ func _physics_process(delta: float) -> void:
 			cam.current = true
 			vehicle = builder.vehicle.duplicate()
 			vehicle.player = self
+			vehicle.parented_parts = builder.vehicle.parented_parts
+			vehicle.reparented_parts = builder.vehicle.reparented_parts
 			vehicle.position = Vector3(position.x,position.y + 2,position.z)
+			if not vehicle.cam:
+				vehicle.cam = vehicle.get_node("Camera Arm/Cam")
+			if not vehicle.camera_arm:
+				vehicle.camera_arm = vehicle.get_node("Camera Arm")
+			if vehicle.seat:
+				vehicle.camera_arm.position = vehicle.seat.position
+			for i in range(vehicle.parented_parts.size()):
+				var path_reltative = builder.vehicle.get_path_to(vehicle.parented_parts[i])
+				var new_node = vehicle.get_node(path_reltative)
+				vehicle.parented_parts[i] = new_node
+				path_reltative = builder.vehicle.get_path_to(vehicle.reparented_parts[i])
+				new_node = vehicle.get_node(path_reltative)
+				vehicle.reparented_parts[i] = new_node
 			vehicle.freeze = false
 			get_parent().add_child(vehicle)
 		else:
+			if vehicle:
+				vehicle.queue_free()
 			building = true
 			builder.cam.current = true
 			cam.current = false
@@ -76,5 +93,9 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				velocity.z = move_toward(velocity.z, 0, SPEED)
 		else:
-			position = vehicle.position + Vector3(0,2,0)
+			if vehicle.seat:
+				position = vehicle.seat.global_position + (Vector3(0,1.25,0) * vehicle.basis.inverse())
+			else:
+				position = vehicle.position + Vector3(0,3,0)
+			rotation = vehicle.rotation
 	move_and_slide()

@@ -5,16 +5,23 @@ extends VehicleBody3D
 @export var player : Player
 @export var drive_force : float = 100
 @export var turn_force : float = 30
+@export var parented_parts : Array[Node3D]
+@export var reparented_parts : Array[Node3D]
+@export var seat : Node3D
 
 @onready var camera_arm: SpringArm3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 
 var flipped : bool = false
-var flipped_steer : bool = false
+var flipped_steer : bool = true
 
 func _input(event: InputEvent) -> void:
 	if not freeze:
 		if player.driving and not player.building:
+			if not cam:
+				cam = $"Camera Arm/Cam"
+			if not camera_arm:
+				camera_arm = $"Camera Arm"
 			if event is InputEventMouseMotion:
 				camera_arm.rotation.y += -event.relative.x * mouse_sens
 				camera_arm.rotation.x += -event.relative.y * mouse_sens
@@ -28,6 +35,7 @@ func _input(event: InputEvent) -> void:
 
 func  _process(delta: float) -> void:
 	if player and player.driving and not player.building and not freeze:
+		reposition.call_deferred()
 		if Input.is_action_just_pressed("switch drive dir"):
 			if flipped:
 				flipped = false
@@ -46,3 +54,9 @@ func  _process(delta: float) -> void:
 			steer *= -1
 		engine_force = drive
 		steering = deg_to_rad(steer)
+
+func reposition():
+	for i in range(parented_parts.size()):
+		var original = parented_parts[i]
+		var duplicate = reparented_parts[i]
+		duplicate.transform = global_transform.affine_inverse() * original.global_transform

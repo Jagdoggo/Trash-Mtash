@@ -6,7 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://b04wdl6v6rdda" path="res://wheel.tscn" id="4_h00wr"]
 [ext_resource type="PackedScene" uid="uid://digll4jlqnkd5" path="res://servo.tscn" id="5_gtodl"]
 [ext_resource type="PackedScene" uid="uid://u2vndig3hjmo" path="res://wheel(steer).tscn" id="5_ucbhk"]
+[ext_resource type="PackedScene" uid="uid://dk13u3roy5j7s" path="res://seat.tscn" id="6_3uvuy"]
 [ext_resource type="Script" uid="uid://gissbbh2t35s" path="res://vehicle.gd" id="6_ucbhk"]
+[ext_resource type="PackedScene" uid="uid://dqw1frx8hmdrv" path="res://1x_1_slope.tscn" id="7_u3nas"]
+[ext_resource type="PackedScene" uid="uid://cud6v1hauf2b8" path="res://2x_1_slope.tscn" id="8_ewt2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -20,9 +23,22 @@ background_mode = 2
 sky = SubResource("Sky_nebbf")
 tonemap_mode = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uvuy"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl")])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b")])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 
@@ -48,3 +64,36 @@ spring_length = 2.0
 [node name="Cam" type="Camera3D" parent="Camera Arm" unique_id=1588652023]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 size = 15.0
+
+[node name="UI" type="Control" parent="." unique_id=115303950]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI" unique_id=2033279758]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.0
+offset_right = 49.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Block" type="Label" parent="UI/HBoxContainer" unique_id=1490063618]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
+text = "Block"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="UI/HBoxContainer" unique_id=1535522423]
+layout_mode = 2
+
+[node name="Parent" type="Label" parent="UI/HBoxContainer" unique_id=428269337]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
+text = "Parent"

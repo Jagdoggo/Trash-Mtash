@@ -13,6 +13,8 @@ class_name Builder
 @onready var current_parent : Node3D = $Vehicle
 
 var current_block_index : int = 0
+var arr : Array[Node3D]
+var part_id : int = 0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -31,6 +33,7 @@ func _input(event: InputEvent) -> void:
 			cam.position.z = clamp(cam.position.z,1,15)
 
 func _process(delta: float) -> void:
+	$UI.visible = player.building
 	if player.building:
 		var inpupt_dir : Vector2 = Vector2(int(Input.is_action_just_pressed("right")) - int(Input.is_action_just_pressed("left")),int(Input.is_action_just_pressed("backward")) - int(Input.is_action_just_pressed("forward")))
 		inpupt_dir = inpupt_dir.rotated(deg_to_rad(-round(camera_arm.rotation_degrees.y/90)*90))
@@ -45,7 +48,11 @@ func _process(delta: float) -> void:
 			current_block_index += 1
 		if Input.is_action_just_pressed("delete part"):
 			for child in vehicle.get_children():
-				if preview.position.distance_squared_to(child.position) < 0.25 and child is not MeshInstance3D:
+				if preview.position.distance_squared_to(child.position) < 0.25:
+					if child.get_parent() != self:
+						var index = $Vehicle.parented_parts.find(child)
+						$Vehicle.parented_parts.remove_at(index)
+						$Vehicle.reparented_parts.remove_at(index)
 					child.queue_free()
 		if Input.is_action_just_pressed("set parent"):
 			for child in vehicle.get_children():
@@ -53,9 +60,31 @@ func _process(delta: float) -> void:
 					current_parent = child.rotation_point
 		if Input.is_action_just_pressed("reset parent"):
 			current_parent = $Vehicle
+		if not current_parent:
+			current_parent = $Vehicle
 		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
+		var tmp_part = blocks[current_block_index].instantiate()
+		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
+		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
 		if Input.is_action_just_pressed("build part"):
+			part_id += 1
 			var part = blocks[current_block_index].instantiate()
-			part.position = preview.position
+			part.position += preview.position
+			part.position -= current_parent.global_position - position
+			part.name = part.name + str(part_id)
 			current_parent.add_child(part)
+			if current_parent != $Vehicle:
+				$Vehicle.parented_parts.append(part)
+				var reparent_duplicate : Node3D = part.duplicate()
+				for child in reparent_duplicate.get_children(true):
+					if child:
+						child.queue_free()
+				reparent_duplicate.position = part.global_position - $Vehicle.global_position
+				reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
+				$Vehicle.add_child(reparent_duplicate)
+				$Vehicle.reparented_parts.append(reparent_duplicate)
+			if current_block_index == 3:
+				current_parent = part.rotation_point
+			if current_block_index == 4:
+				vehicle.seat = part

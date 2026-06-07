@@ -1,10 +1,13 @@
 extends CollisionShape3D
 class_name Servo
 
-@export var rotation_point : CharacterBody3D
+@export var rotation_point : Node3D
 @export var speed : float = 30
 
 func _process(delta: float) -> void:
-	rotation_point.position = Vector3.ZERO
-	var input = Input.get_axis("servo back","servo forward")
-	rotation_point.rotation_degrees.x += delta * speed * input
+	var input = float(Input.get_axis("servo back","servo forward"))
+	if rotation_point:
+		rotation_point.rotation_degrees.x += delta * speed * input
+	else:
+		if get_child_count() > 0:
+			rotation_point = get_node("Rotation Point")

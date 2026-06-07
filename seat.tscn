@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dk13u3roy5j7s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_en414"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_en414"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bn7dt"]
+material = SubResource("StandardMaterial3D_en414")
+size = Vector3(1, 0.5, 1)
+
+[node name="Seat" type="CollisionShape3D" unique_id=767567029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_en414")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+mesh = SubResource("BoxMesh_bn7dt")
