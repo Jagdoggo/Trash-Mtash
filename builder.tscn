@@ -24,7 +24,7 @@ sky = SubResource("Sky_nebbf")
 tonemap_mode = 2
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u3nas"]
-friction = 1.2
+friction = 2.0
 rough = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uvuy"]

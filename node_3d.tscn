@@ -39,6 +39,10 @@ size = Vector3(500, 1, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wc5p8"]
 size = Vector3(500, 1, 500)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_noarx"]
+friction = 2.0
+rough = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_noarx"]
 size = Vector3(0.5, 0.5, 0.5)
 
@@ -73,6 +77,7 @@ player = NodePath("../Mtash Man")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=380816508]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.685148, 0, -4.046895)
+physics_material_override = SubResource("PhysicsMaterial_noarx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1439810492]
 mesh = SubResource("BoxMesh_noarx")
@@ -82,6 +87,7 @@ shape = SubResource("BoxShape3D_a0tk4")
 
 [node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=1274036124]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6842666, 0, -3.2430406)
+physics_material_override = SubResource("PhysicsMaterial_noarx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2" unique_id=45614552]
 mesh = SubResource("BoxMesh_noarx")
@@ -91,6 +97,7 @@ shape = SubResource("BoxShape3D_a0tk4")
 
 [node name="RigidBody3D3" type="RigidBody3D" parent="." unique_id=695334902]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.999919, 0, -11.72299)
+physics_material_override = SubResource("PhysicsMaterial_noarx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D3" unique_id=882217468]
 mesh = SubResource("BoxMesh_noarx")
@@ -100,6 +107,7 @@ shape = SubResource("BoxShape3D_a0tk4")
 
 [node name="RigidBody3D4" type="RigidBody3D" parent="." unique_id=2011575161]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.048881, 0, 2.6114426)
+physics_material_override = SubResource("PhysicsMaterial_noarx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D4" unique_id=73668728]
 mesh = SubResource("BoxMesh_noarx")
