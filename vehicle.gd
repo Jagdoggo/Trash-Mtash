@@ -33,7 +33,7 @@ func _input(event: InputEvent) -> void:
 					camera_arm.spring_length += event.factor * scroll_sens
 				camera_arm.spring_length = clamp(camera_arm.spring_length,1,15)
 
-func  _process(delta: float) -> void:
+func  _process(_delta: float) -> void:
 	if player and player.driving and not player.building and not freeze:
 		reposition.call_deferred()
 		if Input.is_action_just_pressed("switch drive dir"):
@@ -58,5 +58,5 @@ func  _process(delta: float) -> void:
 func reposition():
 	for i in range(parented_parts.size()):
 		var original = parented_parts[i]
-		var duplicate = reparented_parts[i]
-		duplicate.transform = global_transform.affine_inverse() * original.global_transform
+		var duplicate_node = reparented_parts[i]
+		duplicate_node.transform = global_transform.affine_inverse() * original.global_transform

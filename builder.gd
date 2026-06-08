@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 				cam.position.z += event.factor * scroll_sens
 			cam.position.z = clamp(cam.position.z,1,15)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$UI.visible = player.building
 	if player.building:
 		var inpupt_dir : Vector2 = Vector2(int(Input.is_action_just_pressed("right")) - int(Input.is_action_just_pressed("left")),int(Input.is_action_just_pressed("backward")) - int(Input.is_action_just_pressed("forward")))
@@ -47,13 +47,15 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_pressed("cycle block right"):
 			current_block_index += 1
 		if Input.is_action_just_pressed("delete part"):
-			for child in vehicle.get_children():
-				if preview.position.distance_squared_to(child.position) < 0.25:
-					if child.get_parent() != $Vehicle:
-						var index = $Vehicle.parented_parts.find(child)
-						$Vehicle.parented_parts.remove_at(index)
-						$Vehicle.reparented_parts.remove_at(index)
-					child.queue_free()
+			var testfunc : Callable = Callable(self,"test")
+			check_nearby_nodes(testfunc)
+			#for child in vehicle.get_children():
+				#if preview.position.distance_squared_to(child.position) < 0.25:
+					#if child.get_parent() != $Vehicle:
+						#var index = $Vehicle.parented_parts.find(child)
+						#$Vehicle.parented_parts.remove_at(index)
+						#$Vehicle.reparented_parts.remove_at(index)
+					#child.queue_free()
 		if Input.is_action_just_pressed("set parent"):
 			for child in vehicle.get_children():
 				if preview.position.distance_squared_to(child.position) < 0.25 and child is Servo:
@@ -96,3 +98,29 @@ func _process(delta: float) -> void:
 				current_parent = part.rotation_point
 			if current_block_index == 4:
 				vehicle.seat = part
+
+func delete(node : Node3D):
+	if node.get_parent() != vehicle:
+		vehicle.parented_parts.erase(node)
+		vehicle.reparented_parts.erase(node)
+	node.queue_free()
+
+func test(node : Node3D):
+	print(node.name)
+
+## Starts the recursive distance check on all children of the "Vehicle" node.
+func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
+	var preview_pos: Vector3 = preview.position
+	for child in vehicle.get_children():
+		_process_node_recursive(child, preview_pos, callback, extra_args)
+
+
+## Internal recursive function to check positions and execute the callback
+func _process_node_recursive(current_node: Node, preview_pos: Vector3, callback: Callable, extra_args: Array) -> void:
+	if preview_pos.distance_squared_to(current_node.position) <= 0.25:
+		var full_args: Array = [current_node]
+		full_args.append_array(extra_args)
+		callback.callv(full_args)
+	if current_node is Servo:
+		for child in current_node.rotation_point.get_children():
+			_process_node_recursive(child, preview_pos, callback, extra_args)
