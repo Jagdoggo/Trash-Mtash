@@ -47,8 +47,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("cycle block right"):
 			current_block_index += 1
 		if Input.is_action_just_pressed("delete part"):
-			var testfunc : Callable = Callable(self,"test")
-			check_nearby_nodes(testfunc)
+			check_nearby_nodes(delete)
 			#for child in vehicle.get_children():
 				#if preview.position.distance_squared_to(child.position) < 0.25:
 					#if child.get_parent() != $Vehicle:
@@ -57,17 +56,11 @@ func _process(_delta: float) -> void:
 						#$Vehicle.reparented_parts.remove_at(index)
 					#child.queue_free()
 		if Input.is_action_just_pressed("set parent"):
-			for child in vehicle.get_children():
-				if preview.position.distance_squared_to(child.position) < 0.25 and child is Servo:
-					current_parent = child.rotation_point
+			check_nearby_nodes(set_parent)
 		var y = int(Input.is_action_just_pressed("rotate +y")) - int(Input.is_action_just_pressed("rotate -y"))
 		var x = int(Input.is_action_just_pressed("rotate +x")) - int(Input.is_action_just_pressed("rotate -x"))
 		var z = int(Input.is_action_just_pressed("rotate +z")) - int(Input.is_action_just_pressed("rotate -z"))
-		for child in vehicle.get_children():
-			if preview.position.distance_squared_to(child.position) < 0.25:
-				child.rotate_y(y * 1.5708)
-				child.rotate_x(x * 1.5708)
-				child.rotate_z(z * 1.5708)
+		check_nearby_nodes(rotate_node,[x,y,z])
 		if Input.is_action_just_pressed("reset parent"):
 			current_parent = $Vehicle
 		if not current_parent:
@@ -99,7 +92,18 @@ func _process(_delta: float) -> void:
 			if current_block_index == 4:
 				vehicle.seat = part
 
+func rotate_node(node : Node3D,x : int, y : int, z : int):
+	node.rotate_y(y * 1.5708)
+	node.rotate_x(x * 1.5708)
+	node.rotate_z(z * 1.5708)
+
+func set_parent(node : Node3D):
+	if node is Servo:
+		current_parent = node.rotation_point
+
 func delete(node : Node3D):
+	for child in node.get_children(true):
+		delete(child)
 	if node.get_parent() != vehicle:
 		vehicle.parented_parts.erase(node)
 		vehicle.reparented_parts.erase(node)
@@ -108,16 +112,13 @@ func delete(node : Node3D):
 func test(node : Node3D):
 	print(node.name)
 
-## Starts the recursive distance check on all children of the "Vehicle" node.
 func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
 	var preview_pos: Vector3 = preview.position
 	for child in vehicle.get_children():
 		_process_node_recursive(child, preview_pos, callback, extra_args)
 
-
-## Internal recursive function to check positions and execute the callback
 func _process_node_recursive(current_node: Node, preview_pos: Vector3, callback: Callable, extra_args: Array) -> void:
-	if preview_pos.distance_squared_to(current_node.position) <= 0.25:
+	if preview_pos.distance_squared_to(current_node.position) <= 0.25 and not current_node is SpringArm3D:
 		var full_args: Array = [current_node]
 		full_args.append_array(extra_args)
 		callback.callv(full_args)

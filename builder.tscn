@@ -101,3 +101,15 @@ layout_mode = 2
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
 text = "Parent"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="UI/HBoxContainer" unique_id=209809236]
+layout_mode = 2
+
+[node name="Servo Group" type="Label" parent="UI/HBoxContainer" unique_id=818291337]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
+text = "Servo Group"
+horizontal_alignment = 1
+vertical_alignment = 1
