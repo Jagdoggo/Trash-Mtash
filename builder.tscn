@@ -9,7 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dk13u3roy5j7s" path="res://seat.tscn" id="6_3uvuy"]
 [ext_resource type="Script" uid="uid://gissbbh2t35s" path="res://vehicle.gd" id="6_ucbhk"]
 [ext_resource type="PackedScene" uid="uid://dqw1frx8hmdrv" path="res://1x_1_slope.tscn" id="7_u3nas"]
-[ext_resource type="PackedScene" uid="uid://cud6v1hauf2b8" path="res://2x_1_slope.tscn" id="8_ewt2b"]
+[ext_resource type="PackedScene" uid="uid://cud6v1hauf2b8" path="res://3x_1_slope.tscn" id="8_ewt2b"]
+[ext_resource type="PackedScene" uid="uid://ll2n1ote5dhc" path="res://magnet.tscn" id="9_ewt2b"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -41,7 +42,7 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b")])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b")])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://ll2n1ote5dhc"]
+
+[ext_resource type="Script" uid="uid://dcdmysqrnwqf5" path="res://magnet.gd" id="1_wu1kv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qncar"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1rpa"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_llm5u"]
+material = SubResource("StandardMaterial3D_d1rpa")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tewnw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wu1kv"]
+radius = 0.031
+height = 0.063
+
+[node name="Magnet" type="CollisionShape3D" unique_id=767567029]
+shape = SubResource("BoxShape3D_qncar")
+script = ExtResource("1_wu1kv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+mesh = SubResource("BoxMesh_llm5u")
+
+[node name="Pickup" type="Area3D" parent="." unique_id=333424784]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup" unique_id=1561643856]
+shape = SubResource("BoxShape3D_tewnw")
+
+[node name="Pickup Centre Indicator" type="MeshInstance3D" parent="Pickup" unique_id=1867203414]
+mesh = SubResource("SphereMesh_wu1kv")
+
+[connection signal="body_entered" from="Pickup" to="." method="_on_pickup_body_entered"]
+[connection signal="body_exited" from="Pickup" to="." method="_on_pickup_body_exited"]
