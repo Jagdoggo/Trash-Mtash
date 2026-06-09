@@ -8,6 +8,7 @@ extends VehicleBody3D
 @export var parented_parts : Array[Node3D]
 @export var reparented_parts : Array[Node3D]
 @export var seat : Node3D
+@export var group_id : int = 0
 
 @onready var camera_arm: SpringArm3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
@@ -35,7 +36,13 @@ func _input(event: InputEvent) -> void:
 
 func  _process(_delta: float) -> void:
 	if player and player.driving and not player.building and not freeze:
+		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
+		group_id += group_change_input
+		if group_id < 0:
+			group_id = 0
+		
 		reposition.call_deferred()
+		
 		if Input.is_action_just_pressed("switch drive dir"):
 			if flipped:
 				flipped = false

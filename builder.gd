@@ -15,6 +15,7 @@ class_name Builder
 var current_block_index : int = 0
 var arr : Array[Node3D]
 var part_id : int = 0
+var group_id : int = 0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -48,13 +49,6 @@ func _process(_delta: float) -> void:
 			current_block_index += 1
 		if Input.is_action_just_pressed("delete part"):
 			check_nearby_nodes(delete)
-			#for child in vehicle.get_children():
-				#if preview.position.distance_squared_to(child.position) < 0.25:
-					#if child.get_parent() != $Vehicle:
-						#var index = $Vehicle.parented_parts.find(child)
-						#$Vehicle.parented_parts.remove_at(index)
-						#$Vehicle.reparented_parts.remove_at(index)
-					#child.queue_free()
 		if Input.is_action_just_pressed("set parent"):
 			check_nearby_nodes(set_parent)
 		var y = int(Input.is_action_just_pressed("rotate +y")) - int(Input.is_action_just_pressed("rotate -y"))
@@ -65,8 +59,14 @@ func _process(_delta: float) -> void:
 			current_parent = $Vehicle
 		if not current_parent:
 			current_parent = $Vehicle
+		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
+		group_id += group_change_input
+		if group_id < 0:
+			group_id = 0
+		$"UI/HBoxContainer/Servo Group".text = "Current Servo Group: " + str(group_id)
 		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
+		
 		var tmp_part = blocks[current_block_index].instantiate()
 		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
 		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
@@ -87,8 +87,10 @@ func _process(_delta: float) -> void:
 				reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
 				$Vehicle.add_child(reparent_duplicate)
 				$Vehicle.reparented_parts.append(reparent_duplicate)
-			if current_block_index == 3:
+			if part is Servo:
 				current_parent = part.rotation_point
+				part.vehicle = vehicle
+				part.group_id = group_id
 			if current_block_index == 4:
 				vehicle.seat = part
 
@@ -113,15 +115,16 @@ func test(node : Node3D):
 	print(node.name)
 
 func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
-	var preview_pos: Vector3 = preview.position
+	var preview_pos: Vector3 = preview.global_position
 	for child in vehicle.get_children():
 		_process_node_recursive(child, preview_pos, callback, extra_args)
 
 func _process_node_recursive(current_node: Node, preview_pos: Vector3, callback: Callable, extra_args: Array) -> void:
-	if preview_pos.distance_squared_to(current_node.position) <= 0.25 and not current_node is SpringArm3D:
-		var full_args: Array = [current_node]
-		full_args.append_array(extra_args)
-		callback.callv(full_args)
-	if current_node is Servo:
-		for child in current_node.rotation_point.get_children():
-			_process_node_recursive(child, preview_pos, callback, extra_args)
+	if not "Duplicate" in current_node.name:
+		if preview_pos.distance_squared_to(current_node.global_position) <= 0.25 and not current_node is SpringArm3D:
+			var full_args: Array = [current_node]
+			full_args.append_array(extra_args)
+			callback.callv(full_args)
+		if current_node is Servo:
+			for child in current_node.rotation_point.get_children():
+				_process_node_recursive(child, preview_pos, callback, extra_args)
