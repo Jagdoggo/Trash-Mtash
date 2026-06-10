@@ -5,12 +5,14 @@ albedo_color = Color(1, 1, 0, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_q7elo"]
 material = SubResource("StandardMaterial3D_q7elo")
+top_radius = 0.6
+bottom_radius = 0.6
 height = 0.1
 
 [node name="Wheel(steer)" type="VehicleWheel3D" unique_id=1001268959]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 use_as_traction = true
 use_as_steering = true
+wheel_radius = 0.6
 wheel_rest_length = 0.35
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=670048899]
