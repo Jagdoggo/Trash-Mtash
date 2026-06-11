@@ -94,7 +94,7 @@ func _physics_process(delta: float) -> void:
 				velocity.z = move_toward(velocity.z, 0, SPEED)
 		else:
 			if vehicle.seat:
-				position = vehicle.seat.global_position + (Vector3(0,1.25,0) * vehicle.basis.inverse())
+				position = vehicle.seat.global_position + (Vector3(0,0.5,0) * vehicle.basis.inverse())
 			else:
 				position = vehicle.position + Vector3(0,3,0)
 			rotation = vehicle.rotation

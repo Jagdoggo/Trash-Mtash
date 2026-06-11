@@ -5,6 +5,7 @@ class_name Builder
 @export var blocks : Array[PackedScene]
 @export var scroll_sens : float = 0.4
 @export var player : Player
+@export var part_limits : Array[int]
 
 @onready var vehicle: VehicleBody3D = $Vehicle
 @onready var camera_arm: Node3D = $"Camera Arm"
@@ -66,33 +67,36 @@ func _process(_delta: float) -> void:
 		$"UI/HBoxContainer/Servo Group".text = "Current Servo Group: " + str(group_id)
 		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
-		
 		var tmp_part = blocks[current_block_index].instantiate()
 		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
 		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
+		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(part_limits[current_block_index])
 		if Input.is_action_just_pressed("build part"):
-			part_id += 1
-			var part = blocks[current_block_index].instantiate()
-			part.position += preview.position
-			part.position -= current_parent.global_position - position
-			part.name = part.name + str(part_id)
-			current_parent.add_child(part)
-			if current_parent != $Vehicle:
-				$Vehicle.parented_parts.append(part)
-				var reparent_duplicate : Node3D = part.duplicate()
-				for child in reparent_duplicate.get_children(true):
-					if child:
-						child.queue_free()
-				reparent_duplicate.position = part.global_position - $Vehicle.global_position
-				reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
-				$Vehicle.add_child(reparent_duplicate)
-				$Vehicle.reparented_parts.append(reparent_duplicate)
-			if part is Servo:
-				current_parent = part.rotation_point
-				part.vehicle = vehicle
-				part.group_id = group_id
-			if current_block_index == 4:
-				vehicle.seat = part
+			if part_limits[current_block_index] > 0:
+				part_id += 1
+				var part = blocks[current_block_index].instantiate()
+				part.position += preview.position
+				part.position -= current_parent.global_position - position
+				part.name = part.name + str(part_id)
+				part.set_meta("index",current_block_index)
+				current_parent.add_child(part)
+				part_limits[current_block_index] -= 1
+				if current_parent != $Vehicle:
+					$Vehicle.parented_parts.append(part)
+					var reparent_duplicate : Node3D = part.duplicate()
+					for child in reparent_duplicate.get_children(true):
+						if child:
+							child.queue_free()
+					reparent_duplicate.position = part.global_position - $Vehicle.global_position
+					reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
+					$Vehicle.add_child(reparent_duplicate)
+					$Vehicle.reparented_parts.append(reparent_duplicate)
+				if part is Servo:
+					current_parent = part.rotation_point
+					part.vehicle = vehicle
+					part.group_id = group_id
+				if current_block_index == 4:
+					vehicle.seat = part
 
 func rotate_node(node : Node3D,x : int, y : int, z : int):
 	node.rotate_y(y * 1.5708)
@@ -109,6 +113,8 @@ func delete(node : Node3D):
 	if node.get_parent() != vehicle:
 		vehicle.parented_parts.erase(node)
 		vehicle.reparented_parts.erase(node)
+	if node.has_meta("index"):
+		part_limits[node.get_meta("index")] += 1
 	node.queue_free()
 
 func test(node : Node3D):

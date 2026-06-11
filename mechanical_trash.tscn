@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://5jh52s5crvow"]
+
+[ext_resource type="Script" uid="uid://bir5gp237tf4i" path="res://trash.gd" id="1_7xl48"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0tk4"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oidkq"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7xl48"]
+material = SubResource("StandardMaterial3D_oidkq")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Mechanical Trash" type="RigidBody3D" unique_id=401982828]
+script = ExtResource("1_7xl48")
+trash_type_id = "mechanical"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=478887948]
+shape = SubResource("BoxShape3D_a0tk4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2011521055]
+mesh = SubResource("BoxMesh_7xl48")

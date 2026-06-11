@@ -3,8 +3,12 @@
 [ext_resource type="Script" uid="uid://b603rqywi8d8" path="res://mtash_man.gd" id="1_syic7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cos4b"]
+radius = 0.3
+height = 1.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_syic7"]
+radius = 0.3
+height = 1.5
 
 [node name="Mtash Man" type="CharacterBody3D" unique_id=120742675]
 script = ExtResource("1_syic7")
