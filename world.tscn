@@ -43,9 +43,21 @@ size = Vector3(500, 1, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wc5p8"]
 size = Vector3(500, 1, 500)
 
-[node name="World" type="Node3D" unique_id=1951610600]
+[sub_resource type="BoxMesh" id="BoxMesh_dwbse"]
+size = Vector3(7.5, 3, 7.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkg7o"]
+size = Vector3(7.5, 3, 7.5)
+
+[node name="World" type="Node3D" unique_id=1951610600 node_paths=PackedStringArray("player")]
 script = ExtResource("1_dwbse")
+player = NodePath("Mtash Man")
 trash_scenes = Array[PackedScene]([ExtResource("2_pkg7o"), ExtResource("3_gbfbk"), ExtResource("4_ioo17")])
+chunk_size = 15.0
+trash_per_pile = 80
+piles_per_chunk = 3
+pile_varitation = 1.0
+clear_zone_radius = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1862191061]
 environment = SubResource("Environment_noarx")
@@ -65,6 +77,7 @@ mesh = SubResource("BoxMesh_i5arm")
 shape = SubResource("BoxShape3D_wc5p8")
 
 [node name="Mtash Man" parent="." unique_id=120742675 node_paths=PackedStringArray("builder") instance=ExtResource("5_wse8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 builder = NodePath("../Builder")
 
 [node name="Builder" parent="." unique_id=667126995 node_paths=PackedStringArray("player") instance=ExtResource("6_ic0uy")]
@@ -80,3 +93,11 @@ offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="Recycling Centre" type="StaticBody3D" parent="." unique_id=836046279]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Recycling Centre" unique_id=514145725]
+mesh = SubResource("BoxMesh_dwbse")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Recycling Centre" unique_id=1004852465]
+shape = SubResource("BoxShape3D_pkg7o")

@@ -43,7 +43,7 @@ expand_margin_bottom = 4.0
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
 blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b")])
-part_limits = Array[int]([0, 0, 0, 0, 0, 0, 0, 0])
+part_limits = Array[int]([4, 2, 2, 0, 1, 0, 0, 0])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 

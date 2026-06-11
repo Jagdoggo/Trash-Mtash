@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bg0x6m674qnxw"]
 
 [ext_resource type="Script" uid="uid://bir5gp237tf4i" path="res://trash.gd" id="1_l5j2p"]
-[ext_resource type="PackedScene" uid="uid://dqaf5c58rafyi" path="res://storage.tscn" id="2_5k538"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a0tk4"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -20,5 +19,5 @@ trash_type_id = "frame"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=478887948]
 shape = SubResource("BoxShape3D_a0tk4")
 
-[node name="MeshInstance3D" parent="." unique_id=1978782143 instance=ExtResource("2_5k538")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1978782143]
 mesh = SubResource("BoxMesh_4b83a")
