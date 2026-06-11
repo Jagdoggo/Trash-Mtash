@@ -14,8 +14,8 @@ var loaded_chunks : Dictionary = {}
 var current_player_chunk : Vector2i = Vector2i(999999, 999999)
 
 func _ready() -> void:
-	player.position.x = chunk_size / 2
-	player.position.z = chunk_size / 2
+	player.position.x = (chunk_size / 2) - 5
+	player.position.z = (chunk_size / 2)
 	$"Recycling Centre".position.x = chunk_size / 2
 	$"Recycling Centre".position.z = chunk_size / 2
 	update_chunks()
@@ -76,5 +76,11 @@ func spawn_chunk(chunk: Vector2i) -> void:
 func despawn_chunk(chunk: Vector2i) -> void:
 	if !loaded_chunks.has(chunk):
 		return
+	for trash in loaded_chunks[chunk].get_children():
+		var distx = abs(trash.position.x-player.position.x)
+		var distz = abs(trash.position.z-player.position.z)
+		var dist = distx + distz
+		if trash.protected_from_despawn and dist < chunk_size:
+			trash.reparent(self)
 	loaded_chunks[chunk].queue_free()
 	loaded_chunks.erase(chunk)

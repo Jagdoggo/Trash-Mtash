@@ -8,7 +8,7 @@ height = 0.1
 [node name="Wheel" type="VehicleWheel3D" unique_id=376329292]
 use_as_traction = true
 wheel_radius = 0.6
-wheel_rest_length = 0.35
+suspension_stiffness = 25.88
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=958678714]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)

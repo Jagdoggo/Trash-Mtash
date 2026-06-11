@@ -24,6 +24,9 @@ func _process(delta: float) -> void:
 
 func _on_pickup_body_entered(body: Node3D) -> void:
 	if body is RigidBody3D and body is not VehicleBody3D and active and not is_picking_up:
+		if body.has_method("collided"):
+			print("mag")
+			body.protected_from_despawn = true
 		is_picking_up = true
 		body.freeze = true
 

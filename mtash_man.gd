@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 			vehicle.player = self
 			vehicle.parented_parts = builder.vehicle.parented_parts
 			vehicle.reparented_parts = builder.vehicle.reparented_parts
-			vehicle.position = Vector3(position.x,position.y + 2,position.z)
+			vehicle.position = Vector3(position.x,position.y + 4,position.z)
 			if not vehicle.cam:
 				vehicle.cam = vehicle.get_node("Camera Arm/Cam")
 			if not vehicle.camera_arm:

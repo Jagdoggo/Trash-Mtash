@@ -13,6 +13,8 @@ material = SubResource("StandardMaterial3D_oidkq")
 size = Vector3(0.5, 0.5, 0.5)
 
 [node name="Mechanical Trash" type="RigidBody3D" unique_id=401982828]
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_7xl48")
 trash_type_id = "mechanical"
 
@@ -21,3 +23,5 @@ shape = SubResource("BoxShape3D_a0tk4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2011521055]
 mesh = SubResource("BoxMesh_7xl48")
+
+[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="." unique_id=1737475912]
