@@ -7,6 +7,27 @@
 [ext_resource type="PackedScene" uid="uid://ckkoffyeupk5j" path="res://mtash_man.tscn" id="5_wse8f"]
 [ext_resource type="PackedScene" uid="uid://r86ooiu7b0fl" path="res://builder.tscn" id="6_ic0uy"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k538"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4b83a"]
+material = SubResource("StandardMaterial3D_5k538")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yafw5"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yafw5"]
+material = SubResource("StandardMaterial3D_yafw5")
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oidkq"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7xl48"]
+material = SubResource("StandardMaterial3D_oidkq")
+size = Vector3(0.5, 0.5, 0.5)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4xowi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -53,6 +74,7 @@ size = Vector3(7.5, 3, 7.5)
 script = ExtResource("1_dwbse")
 player = NodePath("Mtash Man")
 trash_scenes = Array[PackedScene]([ExtResource("2_pkg7o"), ExtResource("3_gbfbk"), ExtResource("4_ioo17")])
+trash_meshes = Array[Mesh]([SubResource("BoxMesh_4b83a"), SubResource("BoxMesh_yafw5"), SubResource("BoxMesh_7xl48")])
 chunk_size = 15.0
 trash_per_pile = 80
 piles_per_chunk = 3
