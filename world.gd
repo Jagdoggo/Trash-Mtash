@@ -20,8 +20,12 @@ var loaded_chunk_multimesh_objs : Array[chunk_multimesh]
 var current_player_chunk : Vector2i = Vector2i(999999,999999)
 
 func _ready() -> void:
+	assert(
+		trash_scenes.size() == trash_meshes.size(),
+		"trash_scenes and trash_meshes must have the same size"
+	)
 	player.position.x = (chunk_size / 2) - 5
-	player.position.z = (chunk_size / 2) 
+	player.position.z = (chunk_size / 2)
 	$"Recycling Centre".position.x = chunk_size / 2
 	$"Recycling Centre".position.z = chunk_size / 2
 	update_chunks()
@@ -127,7 +131,7 @@ func spawn_chunk(chunk: Vector2i) -> void:
 			var trash_local_z := rng.randf_range(-pile_varitation, pile_varitation)
 			trash.position = Vector3(
 				chunk.x * chunk_size + pile_local_x + trash_local_x,
-				pile_varitation + 1 + trash_local_y,
+				pile_varitation + 0.6 + trash_local_y,
 				chunk.y * chunk_size + pile_local_z + trash_local_z
 			)
 			trash.rotation_degrees.y = rng.randf_range(0.0, 360.0)
@@ -149,6 +153,12 @@ func despawn_chunk(chunk: Vector2i) -> void:
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]
 				trash.add_child(trash_mesh)
+				trash.sleeping = false
+				trash.get_node("VisibleOnScreenEnabler3D").free()
+				trash.process_mode = Node.PROCESS_MODE_ALWAYS
+				trash.freeze = false
+				trash.collision_mask = 1
+				trash.collision_layer = 1
 				trash.reparent(self)
 	loaded_chunks[chunk].queue_free()
 	loaded_chunks.erase(chunk)

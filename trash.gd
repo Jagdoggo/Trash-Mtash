@@ -1,7 +1,7 @@
 extends RigidBody3D
 class_name Trash
 
-@export var trash_type_id : String = ""
+@export var recycle_info : TrashRecycle
 @export var protected_from_despawn : bool = false
 
 func _ready() -> void:

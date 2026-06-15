@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://cmhp81v3gi6av"]
 
 [ext_resource type="Script" uid="uid://bir5gp237tf4i" path="res://trash.gd" id="1_yafw5"]
+[ext_resource type="Script" uid="uid://eive7uqh72d5" path="res://trash_recycle.gd" id="2_khl0p"]
+
+[sub_resource type="Resource" id="Resource_1o420"]
+script = ExtResource("2_khl0p")
+block_ids = Array[int]([1, 2])
+metadata/_custom_type_script = "uid://eive7uqh72d5"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a0tk4"]
 size = Vector3(0.5, 0.5, 0.5)
@@ -9,7 +15,7 @@ size = Vector3(0.5, 0.5, 0.5)
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_yafw5")
-trash_type_id = "wheel"
+recycle_info = SubResource("Resource_1o420")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=478887948]
 shape = SubResource("BoxShape3D_a0tk4")

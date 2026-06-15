@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://5jh52s5crvow" path="res://mechanical_trash.tscn" id="4_ioo17"]
 [ext_resource type="PackedScene" uid="uid://ckkoffyeupk5j" path="res://mtash_man.tscn" id="5_wse8f"]
 [ext_resource type="PackedScene" uid="uid://r86ooiu7b0fl" path="res://builder.tscn" id="6_ic0uy"]
+[ext_resource type="Script" uid="uid://bu4e64wlrv3d4" path="res://recycling_centre.gd" id="7_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://cxsshybhdjpax" path="res://recycle_option.tscn" id="8_gbfbk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5k538"]
 albedo_color = Color(1, 0, 0, 1)
@@ -70,6 +72,9 @@ size = Vector3(7.5, 3, 7.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkg7o"]
 size = Vector3(7.5, 3, 7.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gbfbk"]
+size = Vector3(10.5, 6, 10.5)
+
 [node name="World" type="Node3D" unique_id=1951610600 node_paths=PackedStringArray("player")]
 script = ExtResource("1_dwbse")
 player = NodePath("Mtash Man")
@@ -117,9 +122,42 @@ grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Recycling Centre" type="StaticBody3D" parent="." unique_id=836046279]
+script = ExtResource("7_pkg7o")
+option_scene = ExtResource("8_gbfbk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Recycling Centre" unique_id=514145725]
 mesh = SubResource("BoxMesh_dwbse")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Recycling Centre" unique_id=1004852465]
 shape = SubResource("BoxShape3D_pkg7o")
+
+[node name="Area3D" type="Area3D" parent="Recycling Centre" unique_id=1475716183]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Recycling Centre/Area3D" unique_id=157261624]
+shape = SubResource("BoxShape3D_gbfbk")
+
+[node name="Control" type="Control" parent="Recycling Centre" unique_id=856047288]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Recycling Centre/Control" unique_id=1423917978]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="body_entered" from="Recycling Centre/Area3D" to="Recycling Centre" method="_on_area_3d_body_entered"]
