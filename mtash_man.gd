@@ -10,9 +10,12 @@ class_name Player
 
 @onready var camera_arm: SpringArm3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
+@onready var trash_detection_area: Area3D = $"Trash Detection Area"
 
 var building = false
 var driving = false
+var picked_up_trash : Trash = null
+var trash_offset : Vector3
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -82,6 +85,23 @@ func _physics_process(delta: float) -> void:
 				if vehicle.cam:
 					vehicle.cam.current = true
 		if not driving:
+			if Input.is_action_just_pressed("pickup trash"):
+				if picked_up_trash:
+					picked_up_trash = null
+				else:
+					var closest_dist : float = INF 
+					var closest_trash : Trash = null
+					for body in trash_detection_area.get_overlapping_bodies(): 
+						if body is Trash: 
+							var dist : float = body.position.distance_squared_to(position)
+							if dist < closest_dist: 
+								closest_dist = dist
+								closest_trash = body
+					if closest_trash:
+						trash_offset = -abs(closest_trash.position-position)
+						picked_up_trash = closest_trash
+			if picked_up_trash:
+				picked_up_trash.position = position + trash_offset
 			if Input.is_action_just_pressed("jump") and is_on_floor():
 				velocity.y = jump_vel
 			if not is_on_floor():

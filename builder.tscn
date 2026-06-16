@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dqw1frx8hmdrv" path="res://1x_1_slope.tscn" id="7_u3nas"]
 [ext_resource type="PackedScene" uid="uid://cud6v1hauf2b8" path="res://3x_1_slope.tscn" id="8_ewt2b"]
 [ext_resource type="PackedScene" uid="uid://ll2n1ote5dhc" path="res://magnet.tscn" id="9_ewt2b"]
+[ext_resource type="PackedScene" uid="uid://de3g0qjwvxysh" path="res://generator.tscn" id="10_j0mst"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -42,8 +43,9 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b")])
-part_limits = Array[int]([4, 2, 2, 0, 1, 0, 0, 1])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst")])
+part_limits = Array[int]([4, 2, 2, 0, 1, 0, 0, 1, 1])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, 0])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 
@@ -123,5 +125,15 @@ layout_mode = 2
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
 text = "Parts Left"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator4" type="VSeparator" parent="UI/HBoxContainer" unique_id=250287824]
+layout_mode = 2
+
+[node name="Net Power" type="Label" parent="UI/HBoxContainer" unique_id=683005953]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
+text = "Net Power"
 horizontal_alignment = 1
 vertical_alignment = 1

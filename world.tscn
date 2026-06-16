@@ -81,6 +81,7 @@ player = NodePath("Mtash Man")
 trash_scenes = Array[PackedScene]([ExtResource("2_pkg7o"), ExtResource("3_gbfbk"), ExtResource("4_ioo17")])
 trash_meshes = Array[Mesh]([SubResource("BoxMesh_4b83a"), SubResource("BoxMesh_yafw5"), SubResource("BoxMesh_7xl48")])
 chunk_size = 15.0
+load_radius = 1
 trash_per_pile = 80
 piles_per_chunk = 3
 pile_varitation = 1.0

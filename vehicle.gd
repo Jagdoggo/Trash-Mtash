@@ -15,6 +15,7 @@ extends VehicleBody3D
 
 var flipped : bool = false
 var flipped_steer : bool = true
+var total_power_used : int
 
 func _input(event: InputEvent) -> void:
 	if not freeze:
@@ -35,6 +36,7 @@ func _input(event: InputEvent) -> void:
 				camera_arm.spring_length = clamp(camera_arm.spring_length,1,15)
 
 func  _process(_delta: float) -> void:
+	#print(total_power_used)
 	if player and player.driving and not player.building and not freeze:
 		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
 		group_id += group_change_input

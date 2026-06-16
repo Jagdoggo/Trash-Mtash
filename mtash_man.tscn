@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b603rqywi8d8" path="res://mtash_man.gd" id="1_syic7"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_syic7"]
+radius = 3.0
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_cos4b"]
 radius = 0.3
 height = 1.5
@@ -12,6 +15,11 @@ height = 1.5
 
 [node name="Mtash Man" type="CharacterBody3D" unique_id=120742675]
 script = ExtResource("1_syic7")
+
+[node name="Trash Detection Area" type="Area3D" parent="." unique_id=465135918]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Trash Detection Area" unique_id=84807668]
+shape = SubResource("SphereShape3D_syic7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=364403120]
 mesh = SubResource("CapsuleMesh_cos4b")

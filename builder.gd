@@ -6,6 +6,7 @@ class_name Builder
 @export var scroll_sens : float = 0.4
 @export var player : Player
 @export var part_limits : Array[int]
+@export var power_used : Array[int]
 
 @onready var vehicle: VehicleBody3D = $Vehicle
 @onready var camera_arm: Node3D = $"Camera Arm"
@@ -71,6 +72,7 @@ func _process(_delta: float) -> void:
 		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
 		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
 		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(part_limits[current_block_index])
+		$"UI/HBoxContainer/Net Power".text = "Net Power: " + str(vehicle.total_power_used)
 		if Input.is_action_just_pressed("build part"):
 			if part_limits[current_block_index] > 0:
 				part_id += 1
@@ -80,6 +82,7 @@ func _process(_delta: float) -> void:
 				part.name = part.name + str(part_id)
 				part.set_meta("index",current_block_index)
 				current_parent.add_child(part)
+				vehicle.total_power_used -= power_used[current_block_index]
 				part_limits[current_block_index] -= 1
 				if current_parent != $Vehicle:
 					$Vehicle.parented_parts.append(part)
@@ -114,7 +117,9 @@ func delete(node : Node3D):
 		vehicle.parented_parts.erase(node)
 		vehicle.reparented_parts.erase(node)
 	if node.has_meta("index"):
-		part_limits[node.get_meta("index")] += 1
+		var index = node.get_meta("index")
+		part_limits[index] += 1
+		vehicle.total_power_used += power_used[index]
 	node.queue_free()
 
 func test(node : Node3D):
