@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c4qvot1vsak4j"
+path="res://.godot/imported/turbine.obj-d0e7e0decd1b5fe43dfc6ed5d791e856.mesh"
+
+[deps]
+
+files=["res://.godot/imported/turbine.obj-d0e7e0decd1b5fe43dfc6ed5d791e856.mesh"]
+
+source_file="res://textures/turbine.obj"
+dest_files=["res://.godot/imported/turbine.obj-d0e7e0decd1b5fe43dfc6ed5d791e856.mesh", "res://.godot/imported/turbine.obj-d0e7e0decd1b5fe43dfc6ed5d791e856.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

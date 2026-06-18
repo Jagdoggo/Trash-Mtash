@@ -75,8 +75,8 @@ size = Vector3(7.5, 3, 7.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkg7o"]
 size = Vector3(7.5, 3, 7.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gbfbk"]
-size = Vector3(10.5, 6, 10.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_ioo17"]
+size = Vector3(11.5, 7, 11.5)
 
 [node name="World" type="Node3D" unique_id=1951610600 node_paths=PackedStringArray("player")]
 script = ExtResource("1_dwbse")
@@ -145,7 +145,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Recycling Centre/Area3D" unique_id=157261624]
-shape = SubResource("BoxShape3D_gbfbk")
+shape = SubResource("BoxShape3D_ioo17")
 
 [node name="Control" type="Control" parent="Recycling Centre" unique_id=856047288]
 layout_mode = 3

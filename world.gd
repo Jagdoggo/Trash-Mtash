@@ -178,9 +178,9 @@ func despawn_chunk(chunk: Vector2i) -> void:
 			break
 	for trash in loaded_chunks[chunk].get_children():
 		if trash is Trash:
-			if trash.protected_from_despawn:
+			if trash.protected_from_despawn and trash.position.distance_to(player.position) < chunk_size:
 				var progress_obj : chunk_clear_progress = all_chunk_clear_progress[chunk]
-				progress_obj.ammount_missing += 5
+				progress_obj.ammount_missing += 24
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]
 				trash.add_child(trash_mesh)

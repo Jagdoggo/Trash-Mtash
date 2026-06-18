@@ -36,6 +36,8 @@ func _input(event: InputEvent) -> void:
 				camera_arm.spring_length = clamp(camera_arm.spring_length,1,15)
 
 func  _process(_delta: float) -> void:
+	if position.y < -10:
+		position.y = 5
 	if player and player.driving and not player.building and not freeze and total_power_used >= 0:
 		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
 		group_id += group_change_input
