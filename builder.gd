@@ -5,7 +5,7 @@ class_name Builder
 @export var blocks : Array[PackedScene]
 @export var scroll_sens : float = 0.4
 @export var player : Player
-@export var part_limits : Array[int]
+@export var part_limits : Array[float]
 @export var power_used : Array[int]
 
 @onready var vehicle: VehicleBody3D = $Vehicle
@@ -36,6 +36,9 @@ func _input(event: InputEvent) -> void:
 			cam.position.z = clamp(cam.position.z,1,15)
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("complete"):
+		for i in range(part_limits.size()):
+			part_limits[i] += 1000
 	$UI.visible = player.building
 	if player.building:
 		var inpupt_dir : Vector2 = Vector2(int(Input.is_action_just_pressed("right")) - int(Input.is_action_just_pressed("left")),int(Input.is_action_just_pressed("backward")) - int(Input.is_action_just_pressed("forward")))
@@ -71,10 +74,13 @@ func _process(_delta: float) -> void:
 		var tmp_part = blocks[current_block_index].instantiate()
 		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
 		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
-		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(part_limits[current_block_index])
+		var limit = part_limits[current_block_index]
+		if limit == int(limit):
+			limit = int(limit)
+		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(limit)
 		$"UI/HBoxContainer/Net Power".text = "Net Power: " + str(vehicle.total_power_used)
 		if Input.is_action_just_pressed("build part"):
-			if part_limits[current_block_index] > 0:
+			if limit >= 1:
 				part_id += 1
 				var part = blocks[current_block_index].instantiate()
 				part.position += preview.position
@@ -112,7 +118,8 @@ func set_parent(node : Node3D):
 
 func delete(node : Node3D):
 	for child in node.get_children(true):
-		delete(child)
+		if child is Node3D:
+			delete(child)
 	if node.get_parent() != vehicle:
 		vehicle.parented_parts.erase(node)
 		vehicle.reparented_parts.erase(node)

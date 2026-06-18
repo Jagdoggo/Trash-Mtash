@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ckkoffyeupk5j"]
 
 [ext_resource type="Script" uid="uid://b603rqywi8d8" path="res://mtash_man.gd" id="1_syic7"]
+[ext_resource type="Script" uid="uid://hgi48j1dgbb2" path="res://educational.gd" id="2_egqov"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_syic7"]
 radius = 3.0
@@ -32,3 +33,36 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 spring_length = 2.0
 
 [node name="Cam" type="Camera3D" parent="Camera Arm" unique_id=1662631861]
+
+[node name="Educational" type="Control" parent="." unique_id=238147524]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_egqov")
+popups = Array[String](["Did you that trash builup is a real problem", "Did you know that about 4 million tons of trash are thrown away daily", "Did you know that less than 10% of landfill trash makes it to a recycling facility", "Did you know that most of landfill trash is organic/food waste", "Did you know that the other main source of landfill trash is plastic", "Did you know that all the power sources in this game are renewable"])
+cleared_text = "Well done clearing the chunk"
+
+[node name="Text" type="Label" parent="Educational" unique_id=1738428156]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "Did you know that less than 10% of landfill trash makes it to a recycling facility"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Educational Timer" type="Timer" parent="." unique_id=1039665259]
+one_shot = true
+
+[connection signal="timeout" from="Educational Timer" to="Educational" method="_on_educational_timer_timeout"]

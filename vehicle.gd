@@ -36,15 +36,12 @@ func _input(event: InputEvent) -> void:
 				camera_arm.spring_length = clamp(camera_arm.spring_length,1,15)
 
 func  _process(_delta: float) -> void:
-	#print(total_power_used)
-	if player and player.driving and not player.building and not freeze:
+	if player and player.driving and not player.building and not freeze and total_power_used >= 0:
 		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
 		group_id += group_change_input
 		if group_id < 0:
 			group_id = 0
-		
 		reposition.call_deferred()
-		
 		if Input.is_action_just_pressed("switch drive dir"):
 			if flipped:
 				flipped = false

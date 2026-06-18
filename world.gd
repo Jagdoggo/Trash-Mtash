@@ -1,6 +1,11 @@
 extends Node3D
 
+class chunk_clear_progress:
+	var ammount_missing : int
+	var cleared_node : MeshInstance3D
+
 @export var player : Node3D
+@export var cleared_scene : PackedScene
 @export var trash_scenes : Array[PackedScene]
 @export var trash_meshes : Array[Mesh]
 
@@ -17,6 +22,7 @@ class chunk_multimesh:
 
 var loaded_chunks : Dictionary = {}
 var loaded_chunk_multimesh_objs : Array[chunk_multimesh]
+var all_chunk_clear_progress : Dictionary[Vector2i,chunk_clear_progress]
 var current_player_chunk : Vector2i = Vector2i(999999,999999)
 
 func _ready() -> void:
@@ -24,13 +30,15 @@ func _ready() -> void:
 		trash_scenes.size() == trash_meshes.size(),
 		"trash_scenes and trash_meshes must have the same size"
 	)
-	player.position.x = (chunk_size / 2) - 5
+	player.position.x = (chunk_size / 2) - 7
 	player.position.z = (chunk_size / 2)
 	$"Recycling Centre".position.x = chunk_size / 2
 	$"Recycling Centre".position.z = chunk_size / 2
 	update_chunks()
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("complete"):
+		all_chunk_clear_progress[current_player_chunk].ammount_missing = 1000
 	for chunk_data in loaded_chunk_multimesh_objs:
 		var mesh_indices : Array[int] = []
 		for i in range(trash_meshes.size()):
@@ -110,6 +118,13 @@ func create_chunk_multimeshes(chunk_node : Node3D) -> void:
 	loaded_chunk_multimesh_objs.append(chunk_data)
 
 func spawn_chunk(chunk: Vector2i) -> void:
+	var progress_obj : chunk_clear_progress
+	if chunk in all_chunk_clear_progress.keys():
+		progress_obj = all_chunk_clear_progress[chunk]
+	else:
+		progress_obj = chunk_clear_progress.new()
+		progress_obj.ammount_missing = 0
+	all_chunk_clear_progress[chunk] = progress_obj
 	var chunk_root := Node3D.new()
 	chunk_root.name = "Chunk_%d_%d" % [chunk.x, chunk.y]
 	add_child(chunk_root)
@@ -120,22 +135,36 @@ func spawn_chunk(chunk: Vector2i) -> void:
 	rng.seed = hash(str(chunk.x) + "," + str(chunk.y))
 	var mesh_index := randi_range(0, trash_scenes.size() - 1)
 	var trash_scene : PackedScene = trash_scenes[mesh_index]
+	var current_trash_id : int = 0
+	var total = (piles_per_chunk * trash_per_pile) - progress_obj.ammount_missing
+	if progress_obj.cleared_node:
+		return
+	if total <= 0:
+		player.educational.cleared()
+		var cleared_node : MeshInstance3D = cleared_scene.instantiate()
+		cleared_node.position = Vector3(chunk.x * chunk_size+chunk_size/2,-1.9,chunk.y * chunk_size+chunk_size/2)
+		cleared_node.scale = Vector3(chunk_size,1,chunk_size)
+		progress_obj.cleared_node = cleared_node
+		add_child(cleared_node)
+		return
 	for pi in range(piles_per_chunk):
 		var pile_local_x := rng.randf_range(0.0, chunk_size)
 		var pile_local_z := rng.randf_range(0.0, chunk_size)
 		for ti in range(trash_per_pile):
-			var trash : Trash = trash_scene.instantiate()
-			trash.set_meta("t_index", mesh_index)
-			var trash_local_x := rng.randf_range(-pile_varitation, pile_varitation)
-			var trash_local_y := rng.randf_range(-pile_varitation, pile_varitation)
-			var trash_local_z := rng.randf_range(-pile_varitation, pile_varitation)
-			trash.position = Vector3(
-				chunk.x * chunk_size + pile_local_x + trash_local_x,
-				pile_varitation + 0.6 + trash_local_y,
-				chunk.y * chunk_size + pile_local_z + trash_local_z
-			)
-			trash.rotation_degrees.y = rng.randf_range(0.0, 360.0)
-			chunk_root.add_child(trash)
+			current_trash_id += 1
+			if not current_trash_id > total:
+				var trash : Trash = trash_scene.instantiate()
+				trash.set_meta("t_index", mesh_index)
+				var trash_local_x := rng.randf_range(-pile_varitation, pile_varitation)
+				var trash_local_y := rng.randf_range(-pile_varitation, pile_varitation)
+				var trash_local_z := rng.randf_range(-pile_varitation, pile_varitation)
+				trash.position = Vector3(
+					chunk.x * chunk_size + pile_local_x + trash_local_x,
+					pile_varitation + 0.6 + trash_local_y,
+					chunk.y * chunk_size + pile_local_z + trash_local_z
+				)
+				trash.rotation_degrees.y = rng.randf_range(0.0, 360.0)
+				chunk_root.add_child(trash)
 
 func despawn_chunk(chunk: Vector2i) -> void:
 	if !loaded_chunks.has(chunk):
@@ -150,6 +179,8 @@ func despawn_chunk(chunk: Vector2i) -> void:
 	for trash in loaded_chunks[chunk].get_children():
 		if trash is Trash:
 			if trash.protected_from_despawn:
+				var progress_obj : chunk_clear_progress = all_chunk_clear_progress[chunk]
+				progress_obj.ammount_missing += 5
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]
 				trash.add_child(trash_mesh)

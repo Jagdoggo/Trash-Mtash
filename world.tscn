@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cxt5fpc6xlyvs"]
 
 [ext_resource type="Script" uid="uid://cg4qvipuoqr5g" path="res://world.gd" id="1_dwbse"]
+[ext_resource type="PackedScene" uid="uid://4xwwihwbl8c8" path="res://cleared_chunk.tscn" id="2_ioo17"]
 [ext_resource type="PackedScene" uid="uid://bg0x6m674qnxw" path="res://frame_trash.tscn" id="2_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://cmhp81v3gi6av" path="res://wheel_trash.tscn" id="3_gbfbk"]
 [ext_resource type="PackedScene" uid="uid://5jh52s5crvow" path="res://mechanical_trash.tscn" id="4_ioo17"]
@@ -39,28 +40,30 @@ sky_material = SubResource("ProceduralSkyMaterial_4xowi")
 
 [sub_resource type="Environment" id="Environment_noarx"]
 background_mode = 2
+background_energy_multiplier = 0.7
 sky = SubResource("Sky_a202f")
 tonemap_mode = 2
 
-[sub_resource type="Gradient" id="Gradient_noarx"]
-colors = PackedColorArray(1, 0, 0, 1, 0, 0, 1, 1)
+[sub_resource type="Gradient" id="Gradient_gbfbk"]
+offsets = PackedFloat32Array(0, 0.24436091, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5150376, 0.5150376, 0.5150376, 1, 0, 0, 0, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_a0tk4"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ioo17"]
 frequency = 0.0225
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r3fl7"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wse8f"]
 width = 1024
 height = 1024
-noise = SubResource("FastNoiseLite_a0tk4")
-color_ramp = SubResource("Gradient_noarx")
+noise = SubResource("FastNoiseLite_ioo17")
+color_ramp = SubResource("Gradient_gbfbk")
 seamless = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jka67"]
-albedo_texture = SubResource("NoiseTexture2D_r3fl7")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ic0uy"]
+albedo_texture = SubResource("NoiseTexture2D_wse8f")
 uv1_scale = Vector3(64, 64, 64)
 
-[sub_resource type="BoxMesh" id="BoxMesh_i5arm"]
-material = SubResource("StandardMaterial3D_jka67")
+[sub_resource type="BoxMesh" id="BoxMesh_k3n1d"]
+material = SubResource("StandardMaterial3D_ic0uy")
 size = Vector3(500, 1, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wc5p8"]
@@ -78,6 +81,7 @@ size = Vector3(10.5, 6, 10.5)
 [node name="World" type="Node3D" unique_id=1951610600 node_paths=PackedStringArray("player")]
 script = ExtResource("1_dwbse")
 player = NodePath("Mtash Man")
+cleared_scene = ExtResource("2_ioo17")
 trash_scenes = Array[PackedScene]([ExtResource("2_pkg7o"), ExtResource("3_gbfbk"), ExtResource("4_ioo17")])
 trash_meshes = Array[Mesh]([SubResource("BoxMesh_4b83a"), SubResource("BoxMesh_yafw5"), SubResource("BoxMesh_7xl48")])
 chunk_size = 15.0
@@ -93,13 +97,14 @@ environment = SubResource("Environment_noarx")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1796173950]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 light_energy = 0.06
+light_indirect_energy = 0.06
 shadow_enabled = true
 
 [node name="Floor" type="StaticBody3D" parent="." unique_id=542966281]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=44807774]
-mesh = SubResource("BoxMesh_i5arm")
+mesh = SubResource("BoxMesh_k3n1d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1869685724]
 shape = SubResource("BoxShape3D_wc5p8")
@@ -111,16 +116,19 @@ builder = NodePath("../Builder")
 [node name="Builder" parent="." unique_id=667126995 node_paths=PackedStringArray("player") instance=ExtResource("6_ic0uy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 500, 0)
 player = NodePath("../Mtash Man")
+part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0])
 
 [node name="FPS" type="Label" parent="." unique_id=1128981739]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
-metadata/_edit_use_anchors_ = true
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="Recycling Centre" type="StaticBody3D" parent="." unique_id=836046279]
 script = ExtResource("7_pkg7o")

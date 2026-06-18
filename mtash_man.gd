@@ -11,6 +11,7 @@ class_name Player
 @onready var camera_arm: SpringArm3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 @onready var trash_detection_area: Area3D = $"Trash Detection Area"
+@onready var educational: Control = $Educational
 
 var building = false
 var driving = false
@@ -43,6 +44,7 @@ func _physics_process(delta: float) -> void:
 			vehicle.player = self
 			vehicle.parented_parts = builder.vehicle.parented_parts.duplicate()
 			vehicle.reparented_parts = builder.vehicle.reparented_parts.duplicate()
+			vehicle.total_power_used = builder.vehicle.total_power_used
 			vehicle.position = Vector3(position.x,position.y + 4,position.z)
 			if not vehicle.cam:
 				vehicle.cam = vehicle.get_node("Camera Arm/Cam")

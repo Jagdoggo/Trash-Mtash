@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://4xwwihwbl8c8"]
+
+[ext_resource type="Texture2D" uid="uid://djvioxkrp0jw6" path="res://textures/grass.jpeg" id="1_734gl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kgmjb"]
+albedo_texture = ExtResource("1_734gl")
+albedo_texture_force_srgb = true
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_8y0to"]
+material = SubResource("StandardMaterial3D_kgmjb")
+
+[node name="Cleared Chunk" type="MeshInstance3D" unique_id=1044734801]
+mesh = SubResource("BoxMesh_8y0to")

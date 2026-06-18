@@ -12,19 +12,20 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 func recycle(body : Trash):
 	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-	for item in body.recycle_info.block_ids:
+	for i in range(body.recycle_info.block_ids.size()):
 		var option_node : Button = option_scene.instantiate()
+		var item = body.recycle_info.block_ids[i]
 		var name_block = $"../Builder".blocks[item].instantiate()
 		option_node.text = name_block.name
-		option_node.connect("pressed",pressed.bind(item,body))
+		option_node.connect("pressed",pressed.bind(item,body,i))
 		$Control/VBoxContainer.add_child(option_node)
 
-func pressed(item,trash):
+func pressed(item,trash,i):
 	trash_nodes.erase(trash)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	for child in $Control/VBoxContainer.get_children():
 		child.queue_free()
-	$"../Builder".part_limits[item] += 1
+	$"../Builder".part_limits[item] += trash.recycle_info.block_count[i]
 	trash.queue_free()
 	if trash_nodes.size() > 0:
 		recycle(trash_nodes[0])

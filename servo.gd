@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 				running = false
 			else:
 				current_node = current_node.get_parent()
-	if vehicle.group_id == group_id:
+	if vehicle.group_id == group_id and vehicle.total_power_used >= 0:
 		var input = float(Input.get_axis("servo back","servo forward"))
 		if rotation_point:
 			rotation_point.rotation_degrees.x += delta * speed * input

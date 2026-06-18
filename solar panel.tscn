@@ -1,0 +1,47 @@
+[gd_scene format=4 uid="uid://de3g0qjwvxysh"]
+
+[ext_resource type="Texture2D" uid="uid://da3rogco77me8" path="res://textures/Solar Panel.png" id="1_sisv7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qncar"]
+size = Vector3(1, 0.125, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kqty"]
+albedo_texture = ExtResource("1_sisv7")
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_rbnel"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.0625, -0.5, 1, 0.125, 1),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAQAAAAQAAQAEAAMABQAAAAIAAwAFAAIABAAAAAYABgAAAAUAAwAEAAcABAAGAAcABwAFAAMABwAGAAUA"),
+"name": "m_a6968c27-6874-548f-f186-6545fa9423ce",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAA//8AAAAA/////wAAAAD//wAA//8AAAAA/////wAAAAAAAP//AAD///////8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_xt6ag"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.0625, -0.5, 1, 0.125, 1),
+"attribute_data": PackedByteArray("////D/9//w///wAA/38AAP///x//f/8f////D/9//w////8v/3//L////x//f/8f////P/9//z////8v/3//LwAAAAD/fwAAAAD/f/9//38AAP///3///wAA/3//f/9/"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcA"),
+"material": SubResource("StandardMaterial3D_4kqty"),
+"name": "m_a6968c27-6874-548f-f186-6545fa9423ce",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAAAA/////wAAAAD//wAA//8AAP///////wAA/////wAAAAD/v///AAD///+//////wAA/7//////////v///AAD//wCAAAAAAP//AID///////8AgAAA/////wCAAAAAAP///78AAAAAAAD/vwAA//////+/AAD//wAA/7///////////wAA/////////////wAA//8AAP//AAD/////AAAAAAAAAAAAAAAAAAD//wAA//8AAAAAAAD//wAA/3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3////9//7//f/+//3//v/9//7//f/8//3//P/9//z//f/8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_rbnel")
+
+[node name="Solar Panel" type="CollisionShape3D" unique_id=767567029]
+shape = SubResource("BoxShape3D_qncar")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+mesh = SubResource("ArrayMesh_xt6ag")
