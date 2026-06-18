@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
 	if not builder:
 		if vehicle.get_parent().name == "Builder":
 			builder = vehicle.get_parent()
-	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and builder.player.driving:
+	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not builder:
 		var input = float(Input.get_axis("servo back","servo forward"))
 		if rotation_point:
 			rotation_point.rotation_degrees.x += delta * speed * input
