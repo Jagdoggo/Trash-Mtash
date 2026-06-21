@@ -6,7 +6,7 @@ class_name Servo
 @export var group_id : int
 
 var vehicle : VehicleBody3D
-var builder : CharacterBody3D
+var builder : Node3D
 
 func _process(delta: float) -> void:
 	if not vehicle:

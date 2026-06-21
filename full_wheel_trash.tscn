@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://mbr3ljurp5k8"]
+
+[ext_resource type="Script" uid="uid://bir5gp237tf4i" path="res://trash.gd" id="1_vu70l"]
+[ext_resource type="Script" uid="uid://eive7uqh72d5" path="res://trash_recycle.gd" id="2_6yfww"]
+
+[sub_resource type="Resource" id="Resource_1o420"]
+script = ExtResource("2_6yfww")
+block_ids = Array[int]([1, 2, 4])
+block_count = Array[float]([1.0, 1.0, 1.0])
+metadata/_custom_type_script = "uid://eive7uqh72d5"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a0tk4"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yafw5"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yafw5"]
+material = SubResource("StandardMaterial3D_yafw5")
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Full Wheel Trash" type="RigidBody3D" unique_id=401982828]
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_vu70l")
+recycle_info = SubResource("Resource_1o420")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=478887948]
+shape = SubResource("BoxShape3D_a0tk4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=807195706]
+mesh = SubResource("BoxMesh_yafw5")

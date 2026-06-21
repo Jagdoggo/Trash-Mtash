@@ -1,11 +1,65 @@
 [gd_scene format=3 uid="uid://b4e8sbk4mtxav"]
 
+[ext_resource type="ArrayMesh" uid="uid://bjhlqfg2wb6mi" path="res://textures/block.obj" id="1_xfwl5"]
+[ext_resource type="Texture2D" uid="uid://bmim1ccj3shqv" path="res://textures/block.png" id="2_5d32t"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qncar"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_im0tn"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mk58r"]
+albedo_texture = ExtResource("2_5d32t")
+texture_filter = 0
 
 [node name="Block" type="CollisionShape3D" unique_id=767567029]
 shape = SubResource("BoxShape3D_qncar")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
-mesh = SubResource("BoxMesh_im0tn")
+mesh = ExtResource("1_xfwl5")
+surface_material_override/0 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/1 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/2 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/3 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/4 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/5 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/6 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/7 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/8 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/9 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/10 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/11 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/12 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/13 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/14 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/15 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/16 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/17 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/18 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/19 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/20 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/21 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/22 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/23 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/24 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/25 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/26 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/27 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/28 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/29 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/30 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/31 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/32 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/33 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/34 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/35 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/36 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/37 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/38 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/39 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/40 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/41 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/42 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/43 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/44 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/45 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/46 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/47 = SubResource("StandardMaterial3D_mk58r")
+surface_material_override/48 = SubResource("StandardMaterial3D_mk58r")

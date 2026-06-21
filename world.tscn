@@ -78,6 +78,13 @@ size = Vector3(7.5, 3, 7.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ioo17"]
 size = Vector3(11.5, 7, 11.5)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ioo17"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [node name="World" type="Node3D" unique_id=1951610600 node_paths=PackedStringArray("player")]
 script = ExtResource("1_dwbse")
 player = NodePath("Mtash Man")
@@ -148,6 +155,7 @@ collision_mask = 3
 shape = SubResource("BoxShape3D_ioo17")
 
 [node name="Control" type="Control" parent="Recycling Centre" unique_id=856047288]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,11 +170,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -52.5
 offset_top = -20.0
-offset_right = 20.0
+offset_right = 67.5
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="Recycling Centre/Control/VBoxContainer" unique_id=410351146]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ioo17")
+text = "Recycle Trash"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Recycling Centre/Area3D" to="Recycling Centre" method="_on_area_3d_body_entered"]

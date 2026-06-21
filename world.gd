@@ -15,6 +15,7 @@ class chunk_clear_progress:
 @export var piles_per_chunk : int = 7
 @export var pile_varitation : float = 7.5
 @export var clear_zone_radius : int = 1
+@export var save_file_name : String
 
 class chunk_multimesh:
 	var multimesh_nodes : Array[MultiMeshInstance3D]

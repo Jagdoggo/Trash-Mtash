@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://om26ojjxigra"]
+
+[ext_resource type="Script" uid="uid://cabfplv60avaj" path="res://main_menu.gd" id="1_06t4h"]
+
+[node name="Main Menu" type="Control" unique_id=354707960]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+savegame_path_prefix = "trashmtashsave "
+main_scene_path = "res://world.tscn"
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=715978796]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Save File Name" type="TextEdit" parent="Buttons" unique_id=825559954]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+placeholder_text = "Save File Name"
+
+[node name="Play" type="Button" parent="Buttons" unique_id=113883706]
+layout_mode = 2
+text = "Play"
+
+[node name="Reset" type="Button" parent="Buttons" unique_id=607860710]
+layout_mode = 2
+text = "Reset"
+
+[node name="Quit" type="Button" parent="Buttons" unique_id=1372084440]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Buttons/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="Buttons/Quit" to="." method="_on_quit_pressed"]

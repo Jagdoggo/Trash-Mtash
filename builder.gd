@@ -21,7 +21,6 @@ var group_id : int = 0
 
 func _ready() -> void:
 	part_limits = [5,2,2,0,1,0,0,0,4,0]
-	print(part_limits)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -89,10 +88,12 @@ func _process(_delta: float) -> void:
 				part.position -= current_parent.global_position - position
 				part.name = part.name + str(part_id)
 				part.set_meta("index",current_block_index)
+				part.set_meta("pid",part_id)
 				current_parent.add_child(part)
 				vehicle.total_power_used -= power_used[current_block_index]
 				part_limits[current_block_index] -= 1
 				if current_parent != $Vehicle:
+					part.set_meta("parent_pid",current_parent.get_parent().get_meta("pid"))
 					$Vehicle.parented_parts.append(part)
 					var reparent_duplicate : Node3D = part.duplicate()
 					for child in reparent_duplicate.get_children(true):
@@ -123,16 +124,17 @@ func delete(node : Node3D):
 		if child is Node3D:
 			delete(child)
 	if node.get_parent() != vehicle:
-		vehicle.parented_parts.erase(node)
-		vehicle.reparented_parts.erase(node)
+		var index = vehicle.parented_parts.find(node)
+		if index != -1:
+			vehicle.parented_parts.remove_at(index)
+			if index < vehicle.reparented_parts.size():
+				vehicle.reparented_parts[index].queue_free()
+				vehicle.reparented_parts.remove_at(index)
 	if node.has_meta("index"):
 		var index = node.get_meta("index")
 		part_limits[index] += 1
 		vehicle.total_power_used += power_used[index]
 	node.queue_free()
-
-func test(node : Node3D):
-	print(node.name)
 
 func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
 	var preview_pos: Vector3 = preview.global_position

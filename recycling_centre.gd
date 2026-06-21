@@ -8,6 +8,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Trash and not body in trash_nodes:
 		trash_nodes.append(body)
 		if trash_nodes.size() == 1:
+			$Control.show()
 			recycle(body)
 
 func recycle(body : Trash):
@@ -24,8 +25,11 @@ func pressed(item,trash,i):
 	trash_nodes.erase(trash)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	for child in $Control/VBoxContainer.get_children():
-		child.queue_free()
+		if child is Button:
+			child.queue_free()
 	$"../Builder".part_limits[item] += trash.recycle_info.block_count[i]
 	trash.queue_free()
 	if trash_nodes.size() > 0:
 		recycle(trash_nodes[0])
+	else:
+		$Control.hide()
