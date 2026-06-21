@@ -4,13 +4,17 @@ class_name Magnet
 var active : bool = true
 var is_picking_up : bool = false
 
+@onready var magnet_sfx: AudioStreamPlayer3D = $SFX
+
 func _process(delta: float) -> void:
 	if "Duplicate" in name:
 		return
 	if Input.is_action_just_pressed("toggle magnet"):
 		if active:
+			magnet_sfx.stop()
 			detatch()
 		else:
+			magnet_sfx.play()
 			active = true
 	if active:
 		for body in $Pickup.get_overlapping_bodies():

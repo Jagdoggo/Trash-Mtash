@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://ll2n1ote5dhc"]
 
 [ext_resource type="Script" uid="uid://dcdmysqrnwqf5" path="res://magnet.gd" id="1_wu1kv"]
+[ext_resource type="AudioStream" uid="uid://rcydvkwipj5q" path="res://textures/magnet.mp3" id="2_d1rpa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qncar"]
 
@@ -82,6 +83,9 @@ collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pickup" unique_id=1561643856]
 shape = SubResource("BoxShape3D_tewnw")
+
+[node name="SFX" type="AudioStreamPlayer3D" parent="." unique_id=375545714]
+stream = ExtResource("2_d1rpa")
 
 [connection signal="body_entered" from="Pickup" to="." method="_on_pickup_body_entered"]
 [connection signal="body_exited" from="Pickup" to="." method="_on_pickup_body_exited"]

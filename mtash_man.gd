@@ -205,6 +205,8 @@ func _physics_process(delta: float) -> void:
 				driving = false
 				cam.current = true
 				vehicle.cam.current = false
+				rotation.x = 0
+				rotation.z = 0
 			else:
 				collision_layer = 0
 				collision_mask = 0
