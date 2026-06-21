@@ -82,10 +82,6 @@ func load_save():
 					builder.vehicle.add_child(reparent_duplicate)
 				else:
 					builder.vehicle.add_child(block)
-				
-			print(save_data["vehicle"])
-		else:
-			print("JSON Parse Error: ", json.get_error_message())
 
 func _input(event: InputEvent) -> void:
 	if not building:
