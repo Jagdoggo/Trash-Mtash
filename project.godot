@@ -21,8 +21,6 @@ Save="*uid://bv7kgxyifd5bn"
 
 [display]
 
-window/size/viewport_width=768
-window/size/viewport_height=450
 window/stretch/mode="viewport"
 
 [input]
