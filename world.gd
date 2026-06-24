@@ -3,7 +3,7 @@ extends Node3D
 class chunk_clear_progress:
 	var ammount_missing : int
 	var cleared_node : MeshInstance3D
-""
+
 @export var player : Node3D
 @export var cleared_scene : PackedScene
 @export var trash_scenes : Array[PackedScene]
@@ -17,6 +17,7 @@ class chunk_clear_progress:
 @export var clear_zone_radius : int = 1
 @export var save_file_name : String
 @export var pile_positions : Array[Vector3]
+@export var pile_rotations : Array[Vector3]
 
 class chunk_multimesh:
 	var multimesh_nodes : Array[MultiMeshInstance3D]
@@ -159,17 +160,16 @@ func spawn_chunk(chunk: Vector2i) -> void:
 			if not current_trash_id > total:
 				var trash : Trash = trash_scene.instantiate()
 				trash.set_meta("t_index", mesh_index)
-				trash.set_meta("locx",chunk.x * chunk_size + pile_local_x)
-				trash.set_meta("locz",chunk.y * chunk_size + pile_local_z)
 				var trash_local_x = pile_positions[pile_pos_index-1].x
 				var trash_local_y = pile_positions[pile_pos_index-1].y
 				var trash_local_z = pile_positions[pile_pos_index-1].z
+				trash.player_node = player
 				trash.position = Vector3(
 					chunk.x * chunk_size + pile_local_x + trash_local_x,
 					trash_local_y,
 					chunk.y * chunk_size + pile_local_z + trash_local_z
 				)
-				trash.rotation_degrees.y = rng.randf_range(0.0, 360.0)
+				trash.rotation = pile_rotations[pile_pos_index-1]
 				chunk_root.add_child(trash)
 
 func despawn_chunk(chunk: Vector2i) -> void:
@@ -182,7 +182,6 @@ func despawn_chunk(chunk: Vector2i) -> void:
 					mm.queue_free()
 			loaded_chunk_multimesh_objs.erase(chunk_data)
 			break
-	var positions = []
 	for trash in loaded_chunks[chunk].get_children():
 		if trash is Trash:
 			if trash.protected_from_despawn and trash.position.distance_to(player.position) < chunk_size:
@@ -198,11 +197,5 @@ func despawn_chunk(chunk: Vector2i) -> void:
 				trash.collision_mask = 1
 				trash.collision_layer = 1
 				trash.reparent(self)
-			else:
-				positions.append(Vector3(
-					trash.position.x - trash.get_meta("locx"),
-					trash.position.y,
-					trash.position.z - trash.get_meta("locz")
-					))
 	loaded_chunks[chunk].queue_free()
 	loaded_chunks.erase(chunk)

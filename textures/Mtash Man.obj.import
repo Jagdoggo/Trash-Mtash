@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://nigfff0qr4hd"
+path="res://.godot/imported/Mtash Man.obj-1261e0a32663b427e42f77603b5529fa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mtash Man.obj-1261e0a32663b427e42f77603b5529fa.mesh"]
+
+source_file="res://textures/Mtash Man.obj"
+dest_files=["res://.godot/imported/Mtash Man.obj-1261e0a32663b427e42f77603b5529fa.mesh", "res://.godot/imported/Mtash Man.obj-1261e0a32663b427e42f77603b5529fa.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
