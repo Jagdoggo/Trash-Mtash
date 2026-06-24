@@ -8,11 +8,16 @@ class_name Player
 @export var builder : Builder
 @export var vehicle : VehicleBody3D
 @export var full_trash_scenes : Array[PackedScene]
+@export var music_array : Array[AudioStream]
+@export var music_cooldown : float = 100
+@export var music_cooldown_start : float = 15
 
 @onready var camera_arm: SpringArm3D = $"Camera Arm"
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 @onready var trash_detection_area: Area3D = $"Trash Detection Area"
 @onready var educational: Control = $Educational
+@onready var music_player: AudioStreamPlayer3D = $"Music Player"
+@onready var music_timer: Timer = $"Music Timer"
 
 var building = false
 var driving = false
@@ -21,6 +26,7 @@ var trash_offset : Vector3
 var vehicle_data : Array[Array]
 
 func _ready() -> void:
+	music_timer.start(music_cooldown_start)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if Save.save_path != "":
 		load_save.call_deferred()
@@ -160,6 +166,7 @@ func save():
 		dir.store_string(json_string)
 
 func _physics_process(delta: float) -> void:
+	music_player.global_position = get_viewport().get_camera_3d().global_position
 	if Input.is_action_just_pressed("build"):
 		if building:
 			building = false
@@ -257,3 +264,10 @@ func check_magnet(node):
 		check_magnet(child)
 	if "Magnet" in node.name:
 		node.detatch()
+
+func _on_music_timer_timeout() -> void:
+	music_player.stream = music_array.pick_random()
+	music_player.play()
+
+func _on_music_player_finished() -> void:
+	music_timer.start(music_cooldown)
