@@ -13,7 +13,6 @@ class_name Builder
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 @onready var preview: MeshInstance3D = $Preview
 @onready var current_parent : Node3D = $Vehicle
-@onready var build_sfx: AudioStreamPlayer3D = $BuildSFX
 
 var current_block_index : int = 0
 var arr : Array[Node3D]
@@ -91,7 +90,6 @@ func _process(_delta: float) -> void:
 				part.set_meta("index",current_block_index)
 				part.set_meta("pid",part_id)
 				current_parent.add_child(part)
-				build_sfx.play(0.7)
 				vehicle.total_power_used -= power_used[current_block_index]
 				part_limits[current_block_index] -= 1
 				if current_parent != $Vehicle:

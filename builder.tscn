@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://de3g0qjwvxysh" path="res://solar panel.tscn" id="10_j0mst"]
 [ext_resource type="PackedScene" uid="uid://c7xmola4d0e4c" path="res://wind_generator.tscn" id="11_7qxjf"]
 [ext_resource type="AudioStream" uid="uid://b87dgc7jpjq3t" path="res://textures/enigne.mp3" id="14_1iedm"]
-[ext_resource type="AudioStream" uid="uid://bdxid0kka5d6p" path="res://textures/build.mp3" id="15_cn3w5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -147,8 +146,5 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
 text = "Net Power"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="BuildSFX" type="AudioStreamPlayer3D" parent="." unique_id=1817745919]
-stream = ExtResource("15_cn3w5")
 
 [connection signal="body_entered" from="Vehicle" to="Vehicle" method="_on_body_entered"]
