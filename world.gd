@@ -186,7 +186,6 @@ func despawn_chunk(chunk: Vector2i) -> void:
 		if trash is Trash:
 			if trash.protected_from_despawn and trash.position.distance_to(player.position) < chunk_size:
 				var progress_obj : chunk_clear_progress = all_chunk_clear_progress[chunk]
-				print("repringing")
 				progress_obj.ammount_missing += 24
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]

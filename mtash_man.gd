@@ -47,6 +47,7 @@ func load_save():
 				new_trash.set_meta("t_index",save_data["ti"][i])
 				new_trash.position = Vector3(save_data["tx"][i],save_data["ty"][i],save_data["tz"][i])
 				new_trash.rotation = Vector3(save_data["trx"][i],save_data["try"][i],save_data["trz"][i])
+				new_trash.player_node = self
 				get_parent().add_child(new_trash)
 			for i in range(save_data["is_clear"].size()):
 				var progress_obj = get_parent().chunk_clear_progress.new()
