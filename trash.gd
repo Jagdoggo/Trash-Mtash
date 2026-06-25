@@ -3,6 +3,7 @@ class_name Trash
 
 @export var recycle_info : TrashRecycle
 @export var protected_from_despawn : bool = false
+@export var is_magneted : bool = false
 
 var player_node : Player
 
@@ -12,8 +13,9 @@ func _ready() -> void:
 		protected_from_despawn = true
 
 func _process(delta: float) -> void:
-	var distance = abs(player_node.position.x - position.x) + abs(player_node.position.z - position.z)
-	freeze = distance > 15
+	if not is_magneted:
+		var distance = abs(player_node.position.x - position.x) + abs(player_node.position.z - position.z)
+		freeze = distance > 15
 
 func collided(body : Node) -> void:
 	if body is VehicleBody3D:

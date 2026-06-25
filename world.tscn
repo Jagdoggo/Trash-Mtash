@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cuugs0cwrghnx" path="res://textures/Functional Trash.png" id="8_2o6r5"]
 [ext_resource type="PackedScene" uid="uid://cxsshybhdjpax" path="res://recycle_option.tscn" id="8_gbfbk"]
 [ext_resource type="Script" uid="uid://byurns0pptil8" path="res://node.gd" id="10_wse8f"]
+[ext_resource type="Texture2D" uid="uid://cjpp2yl5qdopq" path="res://textures/Recyling Centre.png" id="13_70uel"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2o6r5"]
 resource_name = "m_7154ed32-729d-934e-99ef-8deec9d4a363"
@@ -652,8 +653,41 @@ size = Vector3(500, 1, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_wc5p8"]
 size = Vector3(500, 1, 500)
 
-[sub_resource type="BoxMesh" id="BoxMesh_dwbse"]
-size = Vector3(7.5, 3, 7.5)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u3nc"]
+resource_name = "m_716699cd-cea5-0848-0ed0-2d96fd48c2d3"
+albedo_texture = ExtResource("13_70uel")
+texture_filter = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ikiii"]
+_surfaces = [{
+"aabb": AABB(-3.75, -1, -3.75, 7.5, 2, 7.5),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAQAAAAQAAQAEAAMABQAAAAIAAwAFAAIABAAAAAYABgAAAAUAAwAEAAcABAAGAAcABwAFAAMABwAGAAUA"),
+"name": "m_716699cd-cea5-0848-0ed0-2d96fd48c2d3",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAAAAAAD//wAAAAAAAAAA//8AAAAA/////wAAAAD//wAA//8AAAAA/////wAAAAAAAP//AAD///////8AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_cbp6q"]
+_surfaces = [{
+"aabb": AABB(-3.75, -1, -3.75, 7.5, 2, 7.5),
+"attribute_data": PackedByteArray("/+//H/93/x//7wAA/3cAAP/v/z//d/8//+//H/93/x//7/9f/3f/X//v/z//d/8//+//f/93/3//7/9f/3f/XwAAAAD/dwAAAAD/d/93/3cAAP/v/3f/7wAA/3f/d/93"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAgABAAMABAAFAAYABgAFAAcACAAJAAoACgAJAAsADAANAA4ADgANAA8AEAARABIAEgARABMAFAAVABYAFgAVABcA"),
+"material": SubResource("StandardMaterial3D_2u3nc"),
+"name": "m_716699cd-cea5-0848-0ed0-2d96fd48c2d3",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AAAAAAAA/////wAAAAD//wAA//8AAP///////wAA/////wAAAAD/v///AAD///+//////wAA/7//////////v///AAD//wCAAAAAAP//AID///////8AgAAA/////wCAAAAAAP///78AAAAAAAD/vwAA//////+/AAD//wAA/7///////////wAA/////////////wAA//8AAP//AAD/////AAAAAAAAAAAAAAAAAAD//wAA//8AAAAAAAD//wAA/3////9/////f////3////9/AAD/fwAA/38AAP9/AAD/f////3////9/////f////3////9/////f////3////9//7//f/+//3//v/9//7//f/8//3//P/9//z//f/8/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ikiii")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkg7o"]
 size = Vector3(7.5, 3, 7.5)
@@ -727,7 +761,8 @@ script = ExtResource("7_pkg7o")
 option_scene = ExtResource("8_gbfbk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Recycling Centre" unique_id=514145725]
-mesh = SubResource("BoxMesh_dwbse")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+mesh = SubResource("ArrayMesh_cbp6q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Recycling Centre" unique_id=1004852465]
 shape = SubResource("BoxShape3D_pkg7o")
