@@ -214,7 +214,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_egqov")
-popups = Array[String](["Did you that trash builup is a real problem", "Did you know that about 4 million tons of trash are thrown away daily", "Did you know that less than 10% of landfill trash makes it to a recycling facility", "Did you know that most of landfill trash is organic/food waste", "Did you know that the other main source of landfill trash is plastic", "Did you know that all the power sources in this game are renewable"])
+popups = Array[String](["Did you that trash builup is a real problem", "Did you know that about 4 million tons of trash are thrown away daily", "Did you know that less than 10% of landfill trash makes it to a recycling facility", "Did you know that most of landfill trash is organic/food waste", "Did you know that the other main source of landfill trash is plastic", "Did you know that all the power sources in this game are renewable", "Not all of your vehicle ideas have to be only in game, some people have created real life trash collecting vehicles"])
 cleared_text = "Well done clearing the chunk"
 
 [node name="Text" type="Label" parent="Educational" unique_id=1738428156]
