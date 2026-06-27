@@ -4,6 +4,7 @@ extends Control
 @export var main_scene_path : String
 
 @onready var save_file_name: TextEdit = $"Buttons/Save File Name"
+@onready var tutorial: CheckButton = $Buttons/Tutorial
 
 func delete():
 	var dir = DirAccess.open("user://")
@@ -22,6 +23,7 @@ func delete():
 
 func _on_play_pressed() -> void:
 	Save.save_path = "user://" + savegame_path_prefix + save_file_name.text + ".json"
+	Save.is_tutorial = tutorial.button_pressed
 	get_tree().change_scene_to_file(main_scene_path)
 
 func _on_reset_pressed() -> void: 

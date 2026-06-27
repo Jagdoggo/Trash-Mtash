@@ -59,36 +59,85 @@ func load_save():
 					progress_obj.cleared_node = cleared_node
 					get_parent().add_child(cleared_node)
 				get_parent().all_chunk_clear_progress[Vector2i(save_data["chx"][i],save_data["chy"][i])] = progress_obj
-			var parts : Dictionary[int,Node3D]
+			var parts : Dictionary[int, Node3D]
+			builder.part_id = 0
+
+			# ---------- First pass ----------
+			# Create every part
+			for part in save_data["vehicle"]:
+				var index : int = part[0]
+				var pid : int = part[1]
+
+				var block : Node3D = builder.blocks[index].instantiate()
+
+				builder.part_id = max(builder.part_id, pid)
+
+				block.name += str(pid)
+
+				block.set_meta("index", index)
+				block.set_meta("pid", pid)
+				block.set_meta("parent_pid", part[8])
+
+				parts[pid] = block
+
+				builder.vehicle.total_power_used -= builder.power_used[index]
+
+				if block is Servo:
+					block.vehicle = builder.vehicle
+					# Uncomment this if you save servo groups later.
+					block.group_id = part[9]
+
+				if index == 4:
+					builder.vehicle.seat = block
+
+
+			# ---------- Second pass ----------
+			# Parent everything and restore transforms
 			for part in save_data["vehicle"]:
 				var pid : int = part[1]
-				var block = builder.blocks[part[0]].instantiate()
-				builder.vehicle.total_power_used -= builder.power_used[part[0]]
-				block.name = block.name + str(pid)
-				block.position.x = part[2]
-				block.position.y = part[3]
-				block.position.z = part[4]
-				block.rotation.x = part[5]
-				block.rotation.y = part[6]
-				block.rotation.z = part[7]
-				parts[pid] = block
-				block.set_meta("index",part[0])
-				block.set_meta("pid",pid)
-				block.set_meta("parent_pid",part[8])
-				if part[0] == 4:
-					builder.vehicle.seat = block
-				if part[8]:
-					parts[part[8]].rotation_point.add_child(block)
+				var block : Node3D = parts[pid]
+
+				var parent_pid = part[8]
+
+				if parent_pid:
+					var servo : Servo = parts[parent_pid]
+
+					servo.rotation_point.add_child(block)
+
+					# Restore local transform
+					block.position = Vector3(part[2], part[3], part[4])
+					block.rotation = Vector3(part[5], part[6], part[7])
+
 					builder.vehicle.parented_parts.append(block)
-					var reparent_duplicate : Node3D = block.duplicate()
-					for child in reparent_duplicate.get_children(true):
-						if child:
-							child.queue_free()
-					reparent_duplicate.position = block.global_position - builder.vehicle.global_position
-					reparent_duplicate.name = reparent_duplicate.name + str(pid) + " Duplicate"
-					builder.vehicle.add_child(reparent_duplicate)
+
+					var duplicate : Node3D = block.duplicate()
+
+					for child in duplicate.get_children(true):
+						child.queue_free()
+
+					duplicate.name += " Duplicate"
+
+					builder.vehicle.add_child(duplicate)
+					builder.vehicle.reparented_parts.append(duplicate)
+
 				else:
 					builder.vehicle.add_child(block)
+
+					block.position = Vector3(part[2], part[3], part[4])
+					block.rotation = Vector3(part[5], part[6], part[7])
+
+
+			# ---------- Third pass ----------
+			# Position duplicate parts
+			for i in range(builder.vehicle.parented_parts.size()):
+				var original = builder.vehicle.parented_parts[i]
+				var duplicate = builder.vehicle.reparented_parts[i]
+				duplicate.set_meta("dup",true )
+
+				duplicate.position = original.global_position
+				duplicate.rotation = original.global_rotation
+	if Save.is_tutorial:
+		educational.tutorial()
 
 func _input(event: InputEvent) -> void:
 	if not building:
@@ -104,7 +153,7 @@ func _input(event: InputEvent) -> void:
 			camera_arm.spring_length = clamp(camera_arm.spring_length,1,7.5)
 
 func vehcicle_save_recurse(current_node : Node3D):
-	if current_node.has_meta("index"):
+	if current_node.has_meta("index") and not current_node.has_meta("dup"):
 		var data_arr : Array = []
 		data_arr.append(current_node.get_meta("index"))
 		data_arr.append(current_node.get_meta("pid"))
@@ -115,9 +164,11 @@ func vehcicle_save_recurse(current_node : Node3D):
 		data_arr.append(current_node.rotation.y)
 		data_arr.append(current_node.rotation.z)
 		data_arr.append(current_node.get_meta("parent_pid"))
+		if current_node is Servo:
+			data_arr.append(current_node.group_id)
 		vehicle_data.append(data_arr)
-		for child in current_node.get_children():
-			vehcicle_save_recurse(child)
+	for child in current_node.get_children():
+		vehcicle_save_recurse(child)
 
 func save():
 	var dir = FileAccess.open(Save.save_path, FileAccess.WRITE)

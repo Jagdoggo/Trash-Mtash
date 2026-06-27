@@ -101,6 +101,7 @@ func _process(_delta: float) -> void:
 							child.queue_free()
 					reparent_duplicate.position = part.global_position - $Vehicle.global_position
 					reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
+					reparent_duplicate.set_meta("dup",true)
 					$Vehicle.add_child(reparent_duplicate)
 					$Vehicle.reparented_parts.append(reparent_duplicate)
 				if part is Servo:

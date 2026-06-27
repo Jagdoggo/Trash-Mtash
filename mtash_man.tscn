@@ -186,8 +186,14 @@ height = 1.5
 
 [node name="Mtash Man" type="CharacterBody3D" unique_id=120742675]
 script = ExtResource("1_syic7")
+SPEED = null
+mouse_sens = null
+jump_vel = null
+scroll_sens = null
 full_trash_scenes = Array[PackedScene]([ExtResource("2_lowxs"), ExtResource("3_g6bv4"), ExtResource("4_n3y4l")])
 music_array = Array[AudioStream]([ExtResource("5_g6bv4"), ExtResource("6_6pbgr")])
+music_cooldown = null
+music_cooldown_start = null
 
 [node name="Trash Detection Area" type="Area3D" parent="." unique_id=465135918]
 
@@ -216,10 +222,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_egqov")
 popups = Array[String](["Did you that trash builup is a real problem", "Did you know that about 4 million tons of trash are thrown away daily", "Did you know that less than 10% of landfill trash makes it to a recycling facility", "Did you know that most of landfill trash is organic/food waste", "Did you know that the other main source of landfill trash is plastic", "Did you know that all the power sources in this game are renewable", "Not all of your vehicle ideas have to be only in game, some people have created real life trash collecting vehicles"])
+tutorial_text = Array[String](["Press E to advance tutorial", "Press B to enter build mode", "W, A, S, D moves the position the block will place", "E and Q change the current block your placing", "F places a block", "Arrow keys rotate a block", "Comma and period also rotate a block", "Make a 3 long frame out of blocks", "Add wheel(steer) to the front of your vehicle", "Add normal wheels to the back of your vehicle", "Add a seat somewhere on the vehicle", "Add solar panels to your vehicle to make net power be positive", "Press B to exit build mode and V to drive", "You may need to press P or L to reverse driving and steering direction", "Go back into build mode and build a collection area at the front of your vehicle to collect trash and recycle it", "Drive your vehicle to collect some trash and recycle it", "There is diffrent trash types that give you diffrent blocks when taken to recycling centre", "Now you can upgrade your vehicle however you like"])
 cleared_text = "Well done clearing the chunk"
 
 [node name="Text" type="Label" parent="Educational" unique_id=1738428156]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
