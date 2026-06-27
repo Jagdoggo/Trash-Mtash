@@ -49,6 +49,18 @@ text = "Reset"
 layout_mode = 2
 text = "Quit"
 
+[node name="Import" type="Button" parent="Buttons" unique_id=958443471]
+layout_mode = 2
+text = "Import"
+
+[node name="Export" type="Button" parent="Buttons" unique_id=1590681967]
+layout_mode = 2
+text = "Export"
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=248423450]
+
 [connection signal="pressed" from="Buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Buttons/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="Buttons/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Buttons/Import" to="." method="_on_import_pressed"]
+[connection signal="pressed" from="Buttons/Export" to="." method="_on_export_pressed"]

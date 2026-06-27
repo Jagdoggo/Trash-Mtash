@@ -253,9 +253,6 @@ func _physics_process(delta: float) -> void:
 			building = true
 			builder.cam.current = true
 			cam.current = false
-	if Input.is_action_just_pressed("quit"):
-		save()
-		get_tree().quit()
 	if not building:
 		if Input.is_action_just_pressed("drive"):
 			if driving:
@@ -287,7 +284,8 @@ func _physics_process(delta: float) -> void:
 								closest_dist = dist
 								closest_trash = body
 					if closest_trash:
-						trash_offset = -abs(closest_trash.position-position)
+						closest_trash.protected_from_despawn = true
+						trash_offset = closest_trash.position-position
 						picked_up_trash = closest_trash
 			if picked_up_trash:
 				picked_up_trash.position = position + trash_offset
@@ -323,3 +321,7 @@ func _on_music_timer_timeout() -> void:
 
 func _on_music_player_finished() -> void:
 	music_timer.start(music_cooldown)
+
+func _on_save__quit_pressed() -> void:
+	save()
+	get_tree().quit()
