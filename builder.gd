@@ -20,7 +20,7 @@ var part_id : int = 0
 var group_id : int = 0
 
 func _ready() -> void:
-	part_limits = [5,2,2,0,1,0,0,0,4,0]
+	part_limits = [5,2,2,0,1,0,0,0,4,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -102,12 +102,14 @@ func _process(_delta: float) -> void:
 					reparent_duplicate.position = part.global_position - $Vehicle.global_position
 					reparent_duplicate.name = reparent_duplicate.name + str(part_id) + " Duplicate"
 					reparent_duplicate.set_meta("dup",true)
+					reparent_duplicate.process_mode = Node.PROCESS_MODE_DISABLED
 					$Vehicle.add_child(reparent_duplicate)
 					$Vehicle.reparented_parts.append(reparent_duplicate)
 				if part is Servo:
 					current_parent = part.rotation_point
-					part.vehicle = vehicle
 					part.group_id = group_id
+				if part is Wing or part is Propeller or part is Servo or part is Stabilizer:
+					part.vehicle = vehicle
 				if current_block_index == 4:
 					vehicle.seat = part
 
@@ -140,7 +142,8 @@ func delete(node : Node3D):
 func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
 	var preview_pos: Vector3 = preview.global_position
 	for child in vehicle.get_children():
-		_process_node_recursive(child, preview_pos, callback, extra_args)
+		if not child.has_meta("non"):
+			_process_node_recursive(child, preview_pos, callback, extra_args)
 
 func _process_node_recursive(current_node: Node, preview_pos: Vector3, callback: Callable, extra_args: Array) -> void:
 	if not "Duplicate" in current_node.name:

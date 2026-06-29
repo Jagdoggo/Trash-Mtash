@@ -83,9 +83,9 @@ func load_save():
 				builder.vehicle.total_power_used -= builder.power_used[index]
 
 				if block is Servo:
-					block.vehicle = builder.vehicle
-					# Uncomment this if you save servo groups later.
 					block.group_id = part[9]
+				if block is Wing or block is Servo or block is Propeller or block is Stabilizer:
+					block.vehicle = builder.vehicle
 
 				if index == 4:
 					builder.vehicle.seat = block
@@ -133,6 +133,7 @@ func load_save():
 				var original = builder.vehicle.parented_parts[i]
 				var duplicate = builder.vehicle.reparented_parts[i]
 				duplicate.set_meta("dup",true )
+				duplicate.process_mode = Node.PROCESS_MODE_DISABLED
 
 				duplicate.position = original.global_position
 				duplicate.rotation = original.global_rotation

@@ -9,12 +9,12 @@ class chunk_clear_progress:
 @export var trash_scenes : Array[PackedScene]
 @export var trash_meshes : Array[Mesh]
 
-@export var chunk_size : float = 5
-@export var load_radius : int = 2
-@export var trash_per_pile : int = 20
-@export var piles_per_chunk : int = 7
-@export var pile_varitation : float = 7.5
-@export var clear_zone_radius : int = 1
+@export var chunk_size : float = 15
+@export var load_radius : int = 1
+@export var trash_per_pile : int = 80
+@export var piles_per_chunk : int = 3
+@export var pile_varitation : float = 1
+@export var clear_zone_radius : int = 2
 @export var save_file_name : String
 @export var pile_positions : Array[Vector3]
 @export var pile_rotations : Array[Vector3]

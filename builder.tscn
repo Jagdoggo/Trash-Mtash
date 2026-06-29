@@ -13,7 +13,11 @@
 [ext_resource type="PackedScene" uid="uid://ll2n1ote5dhc" path="res://magnet.tscn" id="9_ewt2b"]
 [ext_resource type="PackedScene" uid="uid://de3g0qjwvxysh" path="res://solar panel.tscn" id="10_j0mst"]
 [ext_resource type="PackedScene" uid="uid://c7xmola4d0e4c" path="res://wind_generator.tscn" id="11_7qxjf"]
+[ext_resource type="PackedScene" uid="uid://cdr386sy7slcc" path="res://wing.tscn" id="12_cn3w5"]
+[ext_resource type="PackedScene" uid="uid://dp2alr137w1fe" path="res://propeller.tscn" id="13_3bdxq"]
 [ext_resource type="AudioStream" uid="uid://b87dgc7jpjq3t" path="res://textures/enigne.mp3" id="14_1iedm"]
+[ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://flap_servo.tscn" id="14_wsqv1"]
+[ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -45,9 +49,9 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf")])
-part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0])
-power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0")])
+part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 
@@ -69,13 +73,16 @@ script = ExtResource("6_ucbhk")
 [node name="Camera Arm" type="SpringArm3D" parent="Vehicle" unique_id=1343443648]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 spring_length = 2.0
+metadata/non = false
 
 [node name="Cam" type="Camera3D" parent="Vehicle/Camera Arm" unique_id=1275216196]
+metadata/non = false
 
 [node name="EngineSFX" type="AudioStreamPlayer3D" parent="Vehicle" unique_id=293413125]
 stream = ExtResource("14_1iedm")
 autoplay = true
 bus = &"Sounds"
+metadata/non = false
 
 [node name="Camera Arm" type="Node3D" parent="." unique_id=174607145]
 

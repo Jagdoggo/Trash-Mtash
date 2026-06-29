@@ -57,7 +57,15 @@ text = "Import"
 layout_mode = 2
 text = "Export"
 
+[node name="Imported" type="Label" parent="Buttons" unique_id=35701005]
+visible = false
+layout_mode = 2
+text = "Imported"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="FileDialog" type="FileDialog" parent="." unique_id=248423450]
+oversampling_override = 1.0
 
 [connection signal="pressed" from="Buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Buttons/Reset" to="." method="_on_reset_pressed"]
