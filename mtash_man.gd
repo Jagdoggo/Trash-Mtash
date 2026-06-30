@@ -269,8 +269,9 @@ func _physics_process(delta: float) -> void:
 				collision_mask = 0
 				driving = true
 				cam.current = false
-				if vehicle.cam:
-					vehicle.cam.current = true
+				if vehicle:
+					if vehicle.cam:
+						vehicle.cam.current = true
 		if not driving:
 			if Input.is_action_just_pressed("pickup trash"):
 				if picked_up_trash:

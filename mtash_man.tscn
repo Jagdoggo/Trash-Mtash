@@ -257,6 +257,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_yv0d0")
+options = Array[String](["Keys!", "Something", "Else", "is", "Here"])
 
 [node name="ColorRect" type="ColorRect" parent="Menu UI" unique_id=2024013156]
 z_index = -1
@@ -293,6 +294,10 @@ text = "Settings"
 [node name="Resume" type="Button" parent="Menu UI/Main Screen" unique_id=2041066526]
 layout_mode = 2
 text = "Resume"
+
+[node name="Help" type="Button" parent="Menu UI/Main Screen" unique_id=1079593448]
+layout_mode = 2
+text = "Help"
 
 [node name="Settings" type="VBoxContainer" parent="Menu UI" unique_id=1858612470]
 visible = false
@@ -359,10 +364,71 @@ max_value = 1.0
 step = 0.0
 value = 1.0
 
+[node name="Help" type="VBoxContainer" parent="Menu UI" unique_id=1096608283]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.5
+offset_top = -20.0
+offset_right = 35.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Back" type="Button" parent="Menu UI/Help" unique_id=1549860530]
+layout_mode = 2
+text = "Go Back"
+
+[node name="Label" type="Label" parent="Menu UI/Help" unique_id=1292004906]
+layout_mode = 2
+text = "Choose Category"
+
+[node name="Option Select" type="OptionButton" parent="Menu UI/Help" unique_id=314216865]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "Keybinds"
+popup/item_0/id = 0
+popup/item_1/text = "Building"
+popup/item_1/id = 1
+popup/item_2/text = "Driving"
+popup/item_2/id = 2
+popup/item_3/text = "Trash Types"
+popup/item_3/id = 3
+popup/item_4/text = "Parts"
+popup/item_4/id = 4
+
+[node name="Info" type="Label" parent="Menu UI/Help" unique_id=445049763]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Toggle build mode: B
+Toggle driving: V
+Cycle selected part: E and Q
+Place part: F
+Remove Part: Y
+Set part parent: U
+Reset part parent: N
+Change servo group: G and H
+Pickup trash: Y
+Rotate part: All arrows + Comma + Dot
+Toggle Magnet: R
+Activate propeller: Space
+Rotate servo: [ and ]
+Rotate elevator servo: w and s
+Rotate aileron servo: a and d
+Swap driving direction: P
+Swap steering Direction: L"
+
 [connection signal="timeout" from="Educational Timer" to="Educational" method="_on_educational_timer_timeout"]
 [connection signal="finished" from="Music Player" to="." method="_on_music_player_finished"]
 [connection signal="timeout" from="Music Timer" to="." method="_on_music_timer_timeout"]
 [connection signal="pressed" from="Menu UI/Main Screen/Save & Quit" to="." method="_on_save__quit_pressed"]
 [connection signal="pressed" from="Menu UI/Main Screen/Settings" to="Menu UI" method="_on_settings_pressed"]
 [connection signal="pressed" from="Menu UI/Main Screen/Resume" to="Menu UI" method="_on_resume_pressed"]
+[connection signal="pressed" from="Menu UI/Main Screen/Help" to="Menu UI" method="_on_help_pressed"]
 [connection signal="pressed" from="Menu UI/Settings/Back" to="Menu UI" method="_on_back_pressed"]
+[connection signal="pressed" from="Menu UI/Help/Back" to="Menu UI" method="_on_back_pressed"]
+[connection signal="item_selected" from="Menu UI/Help/Option Select" to="Menu UI" method="_on_option_select_item_selected"]

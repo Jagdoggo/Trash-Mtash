@@ -1,22 +1,27 @@
 extends Control
 
+@export var options : Array[String]
+
 @onready var master_slider: HSlider = $Settings/Master/Slider
 @onready var music_slider: HSlider = $Settings/Music/Slider
 @onready var sounds_slider: HSlider = $Settings/Sounds/Slider
 @onready var main_screen: VBoxContainer = $"Main Screen"
 @onready var settings: VBoxContainer = $Settings
+@onready var help: VBoxContainer = $Help
+@onready var info: Label = $Help/Info
 
 var state : ui_state
 
 enum ui_state {
 	closed,
 	main,
-	settings
+	settings,
+	help
 }
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("menu"):
-		if state == ui_state.main or state == ui_state.settings:
+		if state == ui_state.main or state == ui_state.settings or state == ui_state.help:
 			_on_resume_pressed()
 		else:
 			_on_back_pressed()
@@ -42,4 +47,14 @@ func _on_settings_pressed() -> void:
 func _on_back_pressed() -> void:
 	main_screen.show()
 	settings.hide()
+	help.hide()
 	state = ui_state.main
+
+func _on_help_pressed() -> void:
+	main_screen.hide()
+	help.show()
+	state = ui_state.help
+
+func _on_option_select_item_selected(index: int) -> void:
+	if options[index]:
+		info.text = options[index]
