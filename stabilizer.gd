@@ -2,7 +2,7 @@ extends CollisionShape3D
 class_name Stabilizer
 
 @export var vehicle : VehicleBody3D
-@export var yaw_damping := -5000.0
+@export var yaw_damping := -7500.0
 
 func _physics_process(_delta):
 	if !vehicle:

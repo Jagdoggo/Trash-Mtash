@@ -1,12 +1,12 @@
 extends CollisionShape3D
 class_name Wing
 
-@export var lift_factor: float = 0.25
+@export var lift_factor: float = 0.15
 @export var wing_area: float = 2.0
 @export var vehicle : VehicleBody3D
 
 # Forces the structural damping to scale smoothly with your custom Godot body damping
-@export var structural_damping: float = 2.0   
+@export var structural_damping: float = 0
 
 var air_density: float = 1.2
 

@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://b87dgc7jpjq3t" path="res://textures/enigne.mp3" id="14_1iedm"]
 [ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://elevator_flap_servo.tscn" id="14_wsqv1"]
 [ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
+[ext_resource type="PackedScene" uid="uid://db3ms30hev5ec" path="res://aileron_flap_servo.tscn" id="16_o6x4r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -49,9 +50,9 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0")])
-part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0"), ExtResource("16_o6x4r")])
+part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0])
 
 [node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
 

@@ -6,7 +6,7 @@ class_name Flap_Servo
 @export var negative_action : String = "forward"
 
 func _ready() -> void:
-	speed = 200
+	speed = 50
 
 func _process(delta: float) -> void:
 	if not vehicle:
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 			rotation_point.rotation_degrees.x += delta * speed * input
 			rotation_point.rotation_degrees.x = clamp(rotation_point.rotation_degrees.x,-limit,limit)
 			if input == 0:
-				rotation_point.rotation_degrees.x = 0
+				rotation_point.rotation_degrees.x = move_toward(rotation_point.rotation_degrees.x,0,delta * speed)
 		else:
 			if get_child_count() > 0:
 				rotation_point = get_node("Rotation Point")

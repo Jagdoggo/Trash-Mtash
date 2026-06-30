@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 		var forward_direction: Vector3 = -global_transform.basis.z
 		
 		# 2. Scale the thrust force
-		var thrust_force: Vector3 = forward_direction * 6000
+		var thrust_force: Vector3 = forward_direction * 1000
 		
 		# 3. Calculate the relative position offset from the vehicle's center
 		var force_position: Vector3 = global_position - vehicle.global_position

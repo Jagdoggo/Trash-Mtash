@@ -93,7 +93,6 @@ shadow_mesh = SubResource("ArrayMesh_sojky")
 [node name="Aileron Flap Servo" type="CollisionShape3D" unique_id=767567029 node_paths=PackedStringArray("rotation_point")]
 shape = SubResource("BoxShape3D_u7oo3")
 script = ExtResource("1_3ducx")
-limit = 5.0
 positive_action = "left"
 negative_action = "right"
 rotation_point = NodePath("Rotation Point")
