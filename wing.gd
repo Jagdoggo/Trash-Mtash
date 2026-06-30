@@ -1,9 +1,12 @@
 extends CollisionShape3D
 class_name Wing
 
-@export var lift_factor = -0.005
-@export var wing_area = 2.0
+@export var lift_factor: float = 0.25
+@export var wing_area: float = 2.0
 @export var vehicle : VehicleBody3D
+
+# Forces the structural damping to scale smoothly with your custom Godot body damping
+@export var structural_damping: float = 2.0   
 
 var air_density: float = 1.2
 
@@ -14,34 +17,54 @@ func _physics_process(_delta: float) -> void:
 	var block_world_pos = global_position
 	var global_offset = block_world_pos - vehicle.global_position
 	
-	# 1. Calculate true 3D point velocity in world space (Don't flatten Y!)
+	# 1. Calculate true 3D point velocity in world space
 	var v_world = vehicle.linear_velocity + vehicle.angular_velocity.cross(global_offset)
 	var speed = v_world.length()
 	
-	if speed < 0.1:
+	if speed < 1.0:
 		return
 		
 	# 2. Convert velocity into the wing's LOCAL space
-	# This reveals how the wind hits the wing after servo rotations
 	var v_local = global_basis.inverse() * v_world
 	
-	# 3. Calculate Angle of Attack (AoA) based on local wind directions
-	# Godot Local: -Z is forward, +Y is upward
-	var aoa = atan2(v_local.y, -v_local.z)
+	# 3. Detect block orientation relative to the vehicle
+	var vehicle_up = vehicle.global_transform.basis.y
+	var wing_up = global_transform.basis.y
+	var flatness_alignment = abs(wing_up.dot(vehicle_up))
 	
-	# 4. Standard arcade lift coefficient based on the rotation angle
-	var cl = sin(2.0 * aoa)
+	if flatness_alignment < 0.1:
+		return
+
+	# ====================================================================
+	# ARCADE MECHANIC 1: PADDLE DAMPING (Anti-Tumble)
+	# ====================================================================
+	var damping_force_y = -v_local.y * speed * structural_damping * wing_area
 	
-	# 5. Calculate the Lift Magnitude using your formulas
-	var clamped_speed = clamp(speed, 0.0, 100.0)
-	var lift_magnitude = 0.5 * lift_factor * wing_area * air_density * pow(clamped_speed, 2) * cl
+	# ====================================================================
+	# ARCADE MECHANIC 2: DEFLECTION LIFT (Servo Support)
+	# ====================================================================
+	var vehicle_fwd = -vehicle.global_transform.basis.z
+	var wing_fwd = -global_transform.basis.z
+	var deflection = wing_fwd.dot(vehicle_up)
 	
-	# 6. Generate the lift force locally (it acts along the wing's local Y-axis)
-	var local_force = Vector3(0, lift_magnitude, 0)
+	var forward_speed = max(-v_local.z, 0.0)
+	var deflection_lift_y = deflection * forward_speed * speed * lift_factor * wing_area
+
+	# ====================================================================
+	# ARCADE MECHANIC 3: MASS-SCALED CEILING
+	# Instead of a hardcoded number, we cap the lift relative to the vehicle's mass.
+	# This ensures a single wing can never single-handedly flip the entire vehicle.
+	# ====================================================================
+	var total_local_lift = damping_force_y + deflection_lift_y
 	
-	# 7. Convert the force back to WORLD space so vehicle.apply_force can use it
-	var world_force = global_basis * local_force
+	# Maximum lift per wing is capped at half the vehicle's gravity weight force
+	var mass_lift_ceiling = (vehicle.mass * 9.8) * 0.5
+	total_local_lift = clamp(total_local_lift, -mass_lift_ceiling, mass_lift_ceiling)
+
+	# ====================================================================
+	# 4. APPLY FORCES
+	# ====================================================================
+	var local_force = Vector3(0, total_local_lift, 0)
+	var world_force = global_transform.basis * local_force
 	
-	# 8. Apply force using your verified global offset configuration
-	print(local_force)
 	vehicle.apply_force(world_force, global_offset)

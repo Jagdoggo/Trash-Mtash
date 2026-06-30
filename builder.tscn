@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cdr386sy7slcc" path="res://wing.tscn" id="12_cn3w5"]
 [ext_resource type="PackedScene" uid="uid://dp2alr137w1fe" path="res://propeller.tscn" id="13_3bdxq"]
 [ext_resource type="AudioStream" uid="uid://b87dgc7jpjq3t" path="res://textures/enigne.mp3" id="14_1iedm"]
-[ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://flap_servo.tscn" id="14_wsqv1"]
+[ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://elevator_flap_servo.tscn" id="14_wsqv1"]
 [ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]

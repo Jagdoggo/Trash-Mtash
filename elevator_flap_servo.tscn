@@ -90,9 +90,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sojky")
 
-[node name="Flap Servo" type="CollisionShape3D" unique_id=767567029 node_paths=PackedStringArray("rotation_point")]
+[node name="Elevator Flap Servo" type="CollisionShape3D" unique_id=767567029 node_paths=PackedStringArray("rotation_point")]
 shape = SubResource("BoxShape3D_u7oo3")
 script = ExtResource("1_juoiv")
+limit = 5.0
 rotation_point = NodePath("Rotation Point")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]

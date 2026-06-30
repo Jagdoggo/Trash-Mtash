@@ -2,6 +2,8 @@ extends Servo
 class_name Flap_Servo
 
 @export var limit : float = 30
+@export var positive_action : String = "backward"
+@export var negative_action : String = "forward"
 
 func _ready() -> void:
 	speed = 200
@@ -20,7 +22,7 @@ func _process(delta: float) -> void:
 		if vehicle.get_parent().name == "Builder":
 			builder = vehicle.get_parent()
 	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not builder:
-		var input = float(Input.get_axis("servo back","servo forward"))
+		var input = float(Input.get_axis(positive_action,negative_action))
 		if rotation_point:
 			rotation_point.rotation_degrees.x += delta * speed * input
 			rotation_point.rotation_degrees.x = clamp(rotation_point.rotation_degrees.x,-limit,limit)

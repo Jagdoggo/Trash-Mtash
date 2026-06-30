@@ -20,7 +20,7 @@ var part_id : int = 0
 var group_id : int = 0
 
 func _ready() -> void:
-	part_limits = [5,2,2,0,1,0,0,0,4,0,0,0,0,0]
+	part_limits = [5,2,2,0,1,0,0,0,4,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:

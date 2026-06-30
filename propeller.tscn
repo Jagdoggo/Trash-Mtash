@@ -3,13 +3,16 @@
 [ext_resource type="Script" uid="uid://c3ejwlo00o1nn" path="res://propeller.gd" id="1_dptwy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
-size = Vector3(1, 0.5, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l76j5"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_swtu7"]
 material = SubResource("StandardMaterial3D_l76j5")
+
+[sub_resource type="SphereMesh" id="SphereMesh_yn686"]
+radius = 0.05
+height = 0.1
 
 [node name="Propeller" type="CollisionShape3D" unique_id=767567029]
 shape = SubResource("BoxShape3D_qrhk2")
@@ -18,3 +21,7 @@ script = ExtResource("1_dptwy")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_swtu7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=287894162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("SphereMesh_yn686")
