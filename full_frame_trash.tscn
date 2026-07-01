@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://8jrrdvwfmw0a" path="res://textures/Frame Trash.png" id="3_vobrn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_llsp6"]
+friction = 0.2
+rough = true
 
 [sub_resource type="Resource" id="Resource_4b83a"]
 script = ExtResource("2_vobrn")

@@ -145,7 +145,7 @@ func spawn_chunk(chunk: Vector2i) -> void:
 	var mesh_index := randi_range(0, trash_scenes.size() - 1)
 	var trash_scene : PackedScene = trash_scenes[mesh_index]
 	var current_trash_id : int = 0
-	var total = (piles_per_chunk * trash_per_pile) - progress_obj.ammount_missing
+	var total = (piles * trash_per_pile) - progress_obj.ammount_missing
 	if progress_obj.cleared_node:
 		return
 	if total <= 0:
