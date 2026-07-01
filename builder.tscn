@@ -50,7 +50,7 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0"), ExtResource("16_o6x4r")])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("16_o6x4r"), ExtResource("15_yh0p0")])
 part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0])
 

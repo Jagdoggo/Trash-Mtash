@@ -1,6 +1,6 @@
 extends Control
 
-@export var options : Array[String]
+@export_multiline() var options : Array[String]
 
 @onready var master_slider: HSlider = $Settings/Master/Slider
 @onready var music_slider: HSlider = $Settings/Music/Slider

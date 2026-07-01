@@ -86,7 +86,7 @@ func _process(_delta: float) -> void:
 				var part = blocks[current_block_index].instantiate()
 				part.position += preview.position
 				part.position -= current_parent.global_position - position
-				part.position *= current_parent.basis
+				part.position *= current_parent.get_parent().basis
 				part.name = part.name + str(part_id)
 				part.set_meta("index",current_block_index)
 				part.set_meta("pid",part_id)
