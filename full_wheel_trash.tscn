@@ -4,6 +4,9 @@
 [ext_resource type="Script" uid="uid://eive7uqh72d5" path="res://trash_recycle.gd" id="2_6yfww"]
 [ext_resource type="Texture2D" uid="uid://b8uwh3ax8ty6e" path="res://textures/Vehicular Trash.png" id="3_6yfww"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_llsp6"]
+friction = 0.2
+
 [sub_resource type="Resource" id="Resource_1o420"]
 script = ExtResource("2_6yfww")
 block_ids = Array[int]([1, 2, 4])
@@ -124,6 +127,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_reyce")
 
 [node name="Full Wheel Trash" type="RigidBody3D" unique_id=401982828]
+physics_material_override = SubResource("PhysicsMaterial_llsp6")
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_vu70l")

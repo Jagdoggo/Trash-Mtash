@@ -692,7 +692,7 @@ shadow_mesh = SubResource("ArrayMesh_ikiii")
 size = Vector3(7.5, 2, 7.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ioo17"]
-size = Vector3(11.5, 7, 11.5)
+size = Vector3(14.5, 9, 14.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ioo17"]
 bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)

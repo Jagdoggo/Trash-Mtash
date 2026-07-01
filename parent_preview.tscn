@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://x1auqy427uy1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cn6ar"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2gyu8"]
+material = SubResource("StandardMaterial3D_cn6ar")
+size = Vector3(1.05, 1.05, 1.05)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_rmk0m"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="Parent Preview" type="MeshInstance3D" unique_id=204736288]
+mesh = SubResource("BoxMesh_2gyu8")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=823517896]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_rmk0m")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=1105833395]
+transparent_bg = true
+
+[node name="Label" type="Label" parent="Sprite3D/SubViewport" unique_id=1350940168]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Rotation Centre"
+horizontal_alignment = 1
+vertical_alignment = 1

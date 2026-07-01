@@ -41,6 +41,11 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3bktd")
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_3bktd"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.25
+
 [node name="Wheel" type="VehicleWheel3D" unique_id=376329292]
 use_as_traction = true
 wheel_radius = 0.6
@@ -49,3 +54,7 @@ suspension_stiffness = 25.88
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=958678714]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, 1, -1, -4.371139e-08, 0, 4.371139e-08, -1, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("ArrayMesh_8m8ww")
+
+[node name="Build" type="MeshInstance3D" parent="." unique_id=799611434]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 1)
+mesh = SubResource("CylinderMesh_3bktd")

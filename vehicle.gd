@@ -39,7 +39,9 @@ func _input(event: InputEvent) -> void:
 func  _process(_delta: float) -> void:
 	if position.y < -10:
 		position.y = 5
+	$Group.visible = player and player.driving and not player.building and not freeze and total_power_used >= 0
 	if player and player.driving and not player.building and not freeze and total_power_used >= 0:
+		$Group.text = "Servo Group: " + str(group_id)
 		engine_sfx.volume_db = 0
 		var new_linear = linear_velocity
 		new_linear.y = 0

@@ -217,7 +217,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_egqov")
 popups = Array[String](["Did you that trash builup is a real problem", "Did you know that about 4 million tons of trash are thrown away daily", "Did you know that less than 10% of landfill trash makes it to a recycling facility", "Did you know that most of landfill trash is organic/food waste", "Did you know that the other main source of landfill trash is plastic", "Did you know that all the power sources in this game are renewable", "Not all of your vehicle ideas have to be only in game, some people have created real life trash collecting vehicles"])
-tutorial_text = Array[String](["Press J to advance tutorial(not the button your told to press)", "Press ESC to acess the menu and press help to find more info", "To save the game press the save and quit button on the menu(if on web, do NOT close the tab or reload without saving)", "Press B to enter build mode", "W, A, S, D moves the position the block will place", "E and Q change the current block your placing", "F places a block", "Arrow keys rotate a block", "Comma and period also rotate a block", "Make a 3 long frame out of blocks", "Add wheel(steer) to the front of your vehicle", "Add normal wheels to the back of your vehicle", "Add a seat somewhere on the vehicle", "Add solar panels to your vehicle to make net power be positive", "Press B to exit build mode and V to drive", "You may need to press P or L to reverse driving and steering direction", "Go back into build mode and build a collection area at the front of your vehicle to collect trash and recycle it", "Drive your vehicle to collect some trash and recycle it", "There is diffrent trash types that give you diffrent blocks when taken to recycling centre", "If you take enough trash from a chunk, it will be cleared(this is the primary goal)", "Now you can upgrade your vehicle however you like", "Remember  there is the help button when you need it"])
+tutorial_text = Array[String](["Press J to advance tutorial(not the button your told to press)", "Press ESC to acess the menu and press help to find more info", "To save the game press the save and quit button on the menu(if on web, do NOT close the tab or reload without saving)", "Press B to enter build mode", "W, A, S, D, Shift, Control moves the position the block will place", "E and Q change the current block your placing", "F places a block", "Arrow keys rotate a block", "Comma and period also rotate a block", "Make a 3 long frame out of blocks", "Add wheel(steer) to the front of your vehicle", "Add normal wheels to the back of your vehicle", "Add a seat somewhere on the vehicle", "Add solar panels to your vehicle to make net power be positive", "Press B to exit build mode and V to drive", "You may need to press P or L to reverse driving and steering direction", "Go back into build mode and build a collection area at the front of your vehicle to collect trash and recycle it", "Drive your vehicle to collect some trash and recycle it", "There is diffrent trash types that give you diffrent blocks when taken to recycling centre", "If you take enough trash from a chunk, it will be cleared(this is the primary goal)", "Now you can upgrade your vehicle however you like", "Remember  there is the help button when you need it"])
 cleared_text = "Well done clearing the chunk"
 
 [node name="Text" type="Label" parent="Educational" unique_id=1738428156]
@@ -229,13 +229,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 16
-text = "Did you know that less than 10% of landfill trash makes it to a recycling facility"
+text = "Comma and period also rotate a block"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Educational" unique_id=1567612038]
+layout_mode = 1
+offset_right = 172.0
+offset_bottom = 285.0
+
+[node name="Small Info" type="Label" parent="Educational/VBoxContainer" unique_id=1208253243]
+custom_maximum_size = Vector2(350, -1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Toggle build mode: B
+Toggle driving: V
+Cycle selected part: E and Q
+Move part place position: W, A, S, and D
+Place part: F
+Remove Part: Y
+Set part parent: U
+Reset part parent: N
+Change servo group: G and H
+Pickup trash: Y
+Rotate part: All arrows + Comma + Dot
+Toggle Magnet: R
+Activate propeller: Space
+Rotate servo: [ and ]
+Rotate elevator servo: w and s
+Rotate aileron servo: a and d
+Swap driving direction: P
+Swap steering Direction: L"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
 
 [node name="Educational Timer" type="Timer" parent="." unique_id=1039665259]
 one_shot = true
@@ -274,8 +304,7 @@ Rotate servo: [ and ]
 Rotate elevator servo: w and s
 Rotate aileron servo: a and d
 Swap driving direction: P
-Swap steering Direction: L
-Complete", "To build a vehicle, start with a frame(a good first frame would be 3 blocks long and 1 block wide). Then find the wheel(steer) part and place 1 on each side of the front of your vehicle, you may need to rotate the wheels so they face the right way. Do the same for the back but with normal wheels. Finally add some power(start with solar panels) until you have at least 0 net power. If you want to, you can add a seat so specify the camera location and also I would recommend adding some blocks at the front of your vehicle to help your pickup some trash.", "To drive your car, exit build mode a press the toggle driving button. Use the movment keys to drive around, then try to find some of the trash you require. Use whatever you have to pickup some trash and drive it back to the recyling centre. You will be given an option of what you want to make it into.", "Funtional Trash:
+Swap steering Direction: L", "To build a vehicle, start with a frame(a good first frame would be 3 blocks long and 1 block wide). Then find the wheel(steer) part and place 1 on each side of the front of your vehicle, you may need to rotate the wheels so they face the right way. Do the same for the back but with normal wheels. Finally add some power(start with solar panels) until you have at least 0 net power. If you want to, you can add a seat so specify the camera location and also I would recommend adding some blocks at the front of your vehicle to help your pickup some trash.", "To drive your car, exit build mode a press the toggle driving button. Use the movment keys to drive around, then try to find some of the trash you require. Use whatever you have to pickup some trash and drive it back to the recyling centre. You will be given an option of what you want to make it into.", "Funtional Trash:
 Appearance: A jumble of multiple colors in the rough shape of a cube.
 Uses: All of the functional block including mechanical(eg servo) and power but not including wheels and seats.
 Frame Trash:

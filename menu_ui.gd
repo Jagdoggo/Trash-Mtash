@@ -9,6 +9,7 @@ extends Control
 @onready var settings: VBoxContainer = $Settings
 @onready var help: VBoxContainer = $Help
 @onready var info: Label = $Help/Info
+@onready var small_info: Label = $"../Educational/VBoxContainer/Small Info"
 
 var state : ui_state
 
@@ -58,3 +59,12 @@ func _on_help_pressed() -> void:
 func _on_option_select_item_selected(index: int) -> void:
 	if options[index]:
 		info.text = options[index]
+		small_info.text = options[index]
+		#small_info.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+		#update_ui.call_deferred()
+#
+#func update_ui():
+	#small_info.offset_left = -small_info.size.x
+	#small_info.offset_right = small_info.size.x
+	#small_info.offset_top = small_info.size.y
+	#small_info.offset_bottom = -small_info.size.y

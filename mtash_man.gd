@@ -61,80 +61,48 @@ func load_save():
 				get_parent().all_chunk_clear_progress[Vector2i(save_data["chx"][i],save_data["chy"][i])] = progress_obj
 			var parts : Dictionary[int, Node3D]
 			builder.part_id = 0
-
-			# ---------- First pass ----------
-			# Create every part
 			for part in save_data["vehicle"]:
 				var index : int = part[0]
 				var pid : int = part[1]
-
 				var block : Node3D = builder.blocks[index].instantiate()
-
 				builder.part_id = max(builder.part_id, pid)
-
 				block.name += str(pid)
-
 				block.set_meta("index", index)
 				block.set_meta("pid", pid)
 				block.set_meta("parent_pid", part[8])
-
 				parts[pid] = block
-
 				builder.vehicle.total_power_used -= builder.power_used[index]
-
 				if block is Servo:
 					block.group_id = part[9]
 				if block is Wing or block is Servo or block is Propeller or block is Stabilizer:
 					block.vehicle = builder.vehicle
-
 				if index == 4:
 					builder.vehicle.seat = block
-
-
-			# ---------- Second pass ----------
-			# Parent everything and restore transforms
 			for part in save_data["vehicle"]:
 				var pid : int = part[1]
 				var block : Node3D = parts[pid]
-
 				var parent_pid = part[8]
-
 				if parent_pid:
 					var servo : Servo = parts[parent_pid]
-
 					servo.rotation_point.add_child(block)
-
-					# Restore local transform
 					block.position = Vector3(part[2], part[3], part[4])
 					block.rotation = Vector3(part[5], part[6], part[7])
-
 					builder.vehicle.parented_parts.append(block)
-
 					var duplicate : Node3D = block.duplicate()
-
 					for child in duplicate.get_children(true):
 						child.queue_free()
-
 					duplicate.name += " Duplicate"
-
 					builder.vehicle.add_child(duplicate)
 					builder.vehicle.reparented_parts.append(duplicate)
-
 				else:
 					builder.vehicle.add_child(block)
-
 					block.position = Vector3(part[2], part[3], part[4])
 					block.rotation = Vector3(part[5], part[6], part[7])
-
-
-			# ---------- Third pass ----------
-			# Position duplicate parts
 			for i in range(builder.vehicle.parented_parts.size()):
 				var original = builder.vehicle.parented_parts[i]
 				var duplicate = builder.vehicle.reparented_parts[i]
 				duplicate.set_meta("dup",true )
 				duplicate.process_mode = Node.PROCESS_MODE_DISABLED
-
 				duplicate.position = original.global_position
 				duplicate.rotation = original.global_rotation
 	if Save.is_tutorial:
@@ -176,7 +144,8 @@ func save():
 	if dir:
 		var data = {"parts" : builder.part_limits,"x" : position.x,"y" : position.y,"z" : position.z}
 		for child in builder.vehicle.get_children():
-			vehcicle_save_recurse(child)
+			if child is Node3D:
+				vehcicle_save_recurse(child)
 		var is_clear : Array[bool]
 		var missing_count : Array[int]
 		var chunkx : Array[int]
@@ -248,6 +217,13 @@ func _physics_process(delta: float) -> void:
 				check_magnet(child)
 			vehicle.freeze = false
 			get_parent().add_child(vehicle)
+			collision_layer = 0
+			collision_mask = 0
+			driving = true
+			cam.current = false
+			if vehicle:
+				if vehicle.cam:
+					vehicle.cam.current = true
 		else:
 			if vehicle:
 				vehicle.queue_free()
@@ -307,15 +283,17 @@ func _physics_process(delta: float) -> void:
 			if vehicle.seat:
 				position = vehicle.seat.global_position + (Vector3(0,0.5,0) * vehicle.basis.inverse())
 			else:
-				position = vehicle.position + Vector3(0,3,0)
+				position = vehicle.position + Vector3(0,1.3,0)
 			rotation = vehicle.rotation
 	move_and_slide()
 
 func check_magnet(node):
 	for child in node.get_children():
 		check_magnet(child)
-	if "Magnet" in node.name:
+	if node is Magnet:
 		node.detatch()
+	if node is VehicleWheel3D:
+		node.get_node("Build").queue_free()
 
 func _on_music_timer_timeout() -> void:
 	music_player.stream = music_array.pick_random()

@@ -19,6 +19,17 @@
 [ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://elevator_flap_servo.tscn" id="14_wsqv1"]
 [ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
 [ext_resource type="PackedScene" uid="uid://db3ms30hev5ec" path="res://aileron_flap_servo.tscn" id="16_o6x4r"]
+[ext_resource type="PackedScene" uid="uid://x1auqy427uy1" path="res://parent_preview.tscn" id="17_yd55b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m8ww"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.29411766)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yd55b"]
+material = SubResource("StandardMaterial3D_8m8ww")
+top_radius = 0.0
+bottom_radius = 1.0
+height = 5.0
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_clihi"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -33,7 +44,7 @@ sky = SubResource("Sky_nebbf")
 tonemap_mode = 2
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u3nas"]
-rough = true
+friction = 0.2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3uvuy"]
 bg_color = Color(0, 0, 0, 1)
@@ -54,7 +65,14 @@ blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), Ext
 part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0])
 
-[node name="Preview" parent="." unique_id=204736288 instance=ExtResource("2_clihi")]
+[node name="Parent Preview" parent="." unique_id=204736288 instance=ExtResource("17_yd55b")]
+visible = false
+
+[node name="Preview" parent="." unique_id=1109257643 instance=ExtResource("2_clihi")]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1015996613]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_yd55b")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1654734133]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
@@ -84,6 +102,21 @@ stream = ExtResource("14_1iedm")
 autoplay = true
 bus = &"Sounds"
 metadata/non = false
+
+[node name="Group" type="Label" parent="Vehicle" unique_id=1069601730]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Servo Group:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera Arm" type="Node3D" parent="." unique_id=174607145]
 

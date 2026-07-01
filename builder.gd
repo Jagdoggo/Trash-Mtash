@@ -13,6 +13,7 @@ class_name Builder
 @onready var cam: Camera3D = $"Camera Arm/Cam"
 @onready var preview: MeshInstance3D = $Preview
 @onready var current_parent : Node3D = $Vehicle
+@onready var parent_preview: MeshInstance3D = $"Parent Preview"
 
 var current_block_index : int = 0
 var arr : Array[Node3D]
@@ -20,7 +21,7 @@ var part_id : int = 0
 var group_id : int = 0
 
 func _ready() -> void:
-	part_limits = [5,2,2,0,1,0,0,0,4,0,0,0,0,0,0]
+	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -80,6 +81,8 @@ func _process(_delta: float) -> void:
 			limit = int(limit)
 		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(limit)
 		$"UI/HBoxContainer/Net Power".text = "Net Power: " + str(vehicle.total_power_used)
+		parent_preview.visible = current_parent != $Vehicle
+		parent_preview.position = current_parent.global_position - global_position
 		if Input.is_action_just_pressed("build part"):
 			if limit >= 1:
 				part_id += 1
@@ -147,7 +150,7 @@ func check_nearby_nodes(callback: Callable, extra_args: Array = []) -> void:
 			_process_node_recursive(child, preview_pos, callback, extra_args)
 
 func _process_node_recursive(current_node: Node, preview_pos: Vector3, callback: Callable, extra_args: Array) -> void:
-	if not "Duplicate" in current_node.name:
+	if not "Duplicate" in current_node.name and current_node is Node3D:
 		if preview_pos.distance_squared_to(current_node.global_position) <= 0.25 and not current_node is SpringArm3D:
 			var full_args: Array = [current_node]
 			full_args.append_array(extra_args)

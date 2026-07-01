@@ -15,6 +15,7 @@ class chunk_clear_progress:
 @export var piles_per_chunk : int = 3
 @export var pile_varitation : float = 1
 @export var clear_zone_radius : int = 2
+@export var less_zone_radius : int = 4
 @export var save_file_name : String
 @export var pile_positions : Array[Vector3]
 @export var pile_rotations : Array[Vector3]
@@ -132,8 +133,13 @@ func spawn_chunk(chunk: Vector2i) -> void:
 	chunk_root.name = "Chunk_%d_%d" % [chunk.x, chunk.y]
 	add_child(chunk_root)
 	loaded_chunks[chunk] = chunk_root
-	if abs(chunk.x) < clear_zone_radius and abs(chunk.y) < clear_zone_radius:
+	var xdist = abs(chunk.x)
+	var ydist = abs(chunk.y)
+	if xdist < clear_zone_radius and ydist < clear_zone_radius:
 		return
+	var piles = piles_per_chunk
+	if xdist < less_zone_radius and ydist < less_zone_radius:
+		piles = 1
 	var rng := RandomNumberGenerator.new()
 	rng.seed = hash(str(chunk.x) + "," + str(chunk.y))
 	var mesh_index := randi_range(0, trash_scenes.size() - 1)
@@ -150,7 +156,7 @@ func spawn_chunk(chunk: Vector2i) -> void:
 		progress_obj.cleared_node = cleared_node
 		add_child(cleared_node)
 		return
-	for pi in range(piles_per_chunk):
+	for pi in range(piles):
 		var pile_local_x := rng.randf_range(0.0, chunk_size)
 		var pile_local_z := rng.randf_range(0.0, chunk_size)
 		var pile_pos_index : int = 0
@@ -186,7 +192,7 @@ func despawn_chunk(chunk: Vector2i) -> void:
 		if trash is Trash:
 			if trash.protected_from_despawn and trash.position.distance_to(player.position) < chunk_size:
 				var progress_obj : chunk_clear_progress = all_chunk_clear_progress[chunk]
-				progress_obj.ammount_missing += 24
+				progress_obj.ammount_missing += 8
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]
 				trash.add_child(trash_mesh)
