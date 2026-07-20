@@ -4,9 +4,9 @@ class_name Servo
 @export var rotation_point : Node3D
 @export var speed : float = 20
 @export var group_id : int
+@export var player : Player
 
-var vehicle : VehicleBody3D
-var builder : Node3D
+@export var vehicle : VehicleBody3D
 
 func _process(delta: float) -> void:
 	if not vehicle:
@@ -18,10 +18,7 @@ func _process(delta: float) -> void:
 				running = false
 			else:
 				current_node = current_node.get_parent()
-	if not builder:
-		if vehicle.get_parent().name == "Builder":
-			builder = vehicle.get_parent()
-	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not builder:
+	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not player.building and player.driving:
 		var input = float(Input.get_axis("servo back","servo forward"))
 		if rotation_point:
 			rotation_point.rotation_degrees.x += delta * speed * input

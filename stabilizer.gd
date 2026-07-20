@@ -6,6 +6,7 @@ class_name Stabilizer
 
 @export var lateral_drag_factor := -8.0 
 
+
 func _physics_process(_delta):
 	if !vehicle:
 		return

@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://elevator_flap_servo.tscn" id="14_wsqv1"]
 [ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
 [ext_resource type="PackedScene" uid="uid://db3ms30hev5ec" path="res://aileron_flap_servo.tscn" id="16_o6x4r"]
+[ext_resource type="PackedScene" uid="uid://di7wbvng6ycq1" path="res://gyro_stabilizer.tscn" id="17_gcgou"]
 [ext_resource type="PackedScene" uid="uid://x1auqy427uy1" path="res://parent_preview.tscn" id="17_yd55b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m8ww"]
@@ -61,9 +62,9 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("16_o6x4r"), ExtResource("15_yh0p0")])
-part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("16_o6x4r"), ExtResource("15_yh0p0"), ExtResource("17_gcgou")])
+part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0, 3])
 
 [node name="Parent Preview" parent="." unique_id=204736288 instance=ExtResource("17_yd55b")]
 visible = false

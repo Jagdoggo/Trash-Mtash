@@ -1,6 +1,8 @@
 extends CollisionShape3D
 class_name Magnet
 
+@export var player : Player
+
 var active : bool = true
 var is_picking_up : bool = false
 
@@ -8,6 +10,8 @@ var is_picking_up : bool = false
 
 func _process(delta: float) -> void:
 	if "Duplicate" in name:
+		return
+	if not player.driving and player.builder:
 		return
 	if Input.is_action_just_pressed("toggle magnet"):
 		if active:

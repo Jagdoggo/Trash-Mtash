@@ -21,7 +21,7 @@ var part_id : int = 0
 var group_id : int = 0
 
 func _ready() -> void:
-	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0]
+	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -76,9 +76,14 @@ func _process(_delta: float) -> void:
 		var tmp_part = blocks[current_block_index].instantiate()
 		$UI/HBoxContainer/Block.text = "Part: " + tmp_part.name
 		$UI/HBoxContainer/Parent.text = "Parent: " + current_parent.name
-		var limit = part_limits[current_block_index]
-		if limit == int(limit):
-			limit = int(limit)
+		var limit : int = 0
+		if current_block_index < part_limits.size():
+			limit = part_limits[current_block_index]
+			if limit == int(limit):
+				limit = int(limit)
+		else:
+			part_limits.append(0)
+			limit = 0
 		$"UI/HBoxContainer/Parts Left".text = "Parts Left: " + str(limit)
 		$"UI/HBoxContainer/Net Power".text = "Net Power: " + str(vehicle.total_power_used)
 		parent_preview.visible = current_parent != $Vehicle
@@ -89,7 +94,7 @@ func _process(_delta: float) -> void:
 				var part = blocks[current_block_index].instantiate()
 				part.position += preview.position
 				part.position -= current_parent.global_position - position
-				part.position *= current_parent.get_parent().basis
+				part.position *= current_parent.global_basis
 				part.name = part.name + str(part_id)
 				part.set_meta("index",current_block_index)
 				part.set_meta("pid",part_id)
@@ -112,8 +117,10 @@ func _process(_delta: float) -> void:
 				if part is Servo:
 					current_parent = part.rotation_point
 					part.group_id = group_id
-				if part is Wing or part is Propeller or part is Servo or part is Stabilizer:
+				if part is Wing or part is Propeller or part is Servo or part is Stabilizer or part is Gyro_stabilizer:
 					part.vehicle = vehicle
+					if not part is Wing:
+						part.player = player
 				if current_block_index == 4:
 					vehicle.seat = part
 
