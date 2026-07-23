@@ -75,10 +75,11 @@ func load_save():
 				if block is Servo:
 					block.group_id = part[9]
 				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer: 
-					block.vehicle = builder.get_node("vehicle")
-					print(builder.get_node("vehicle"))
-					if not block is Wing:
+					block.vehicle = builder.get_node("Vehicle")
+					if not block is Wing and not block is Stabilizer:
 						block.player = self
+				if block is Magnet:
+					block.player = self
 				if index == 4:
 					builder.vehicle.seat = block
 			for part in save_data["vehicle"]:
@@ -207,8 +208,6 @@ func _physics_process(delta: float) -> void:
 				vehicle.cam = vehicle.get_node("Camera Arm/Cam")
 			if not vehicle.camera_arm:
 				vehicle.camera_arm = vehicle.get_node("Camera Arm")
-			if vehicle.seat:
-				vehicle.camera_arm.position = vehicle.seat.position
 			for i in range(vehicle.parented_parts.size()):
 				var path_reltative = builder.vehicle.get_path_to(vehicle.parented_parts[i])
 				var new_node = vehicle.get_node(path_reltative)
@@ -284,10 +283,11 @@ func _physics_process(delta: float) -> void:
 				velocity.z = move_toward(velocity.z, 0, SPEED)
 		else:
 			if vehicle.seat:
+				vehicle.camera_arm.global_position = vehicle.seat.global_position
+				global_rotation = vehicle.seat.global_rotation
 				position = vehicle.seat.global_position + (Vector3(0,0.5,0) * vehicle.basis.inverse())
 			else:
-				position = vehicle.position + Vector3(0,1.3,0)
-			rotation = vehicle.rotation
+				position = vehicle.position + (Vector3(0,1.3,0) * vehicle.basis.inverse())
 	move_and_slide()
 
 func check_magnet(node):

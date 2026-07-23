@@ -119,8 +119,10 @@ func _process(_delta: float) -> void:
 					part.group_id = group_id
 				if part is Wing or part is Propeller or part is Servo or part is Stabilizer or part is Gyro_stabilizer:
 					part.vehicle = vehicle
-					if not part is Wing:
+					if (not part is Wing) and (not part is Stabilizer):
 						part.player = player
+				if part is Magnet:
+					part.player = player
 				if current_block_index == 4:
 					vehicle.seat = part
 

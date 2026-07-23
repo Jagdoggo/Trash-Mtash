@@ -11,7 +11,9 @@ var is_picking_up : bool = false
 func _process(delta: float) -> void:
 	if "Duplicate" in name:
 		return
-	if not player.driving and player.builder:
+	if not player.driving:
+		return
+	if player.building:
 		return
 	if Input.is_action_just_pressed("toggle magnet"):
 		if active:

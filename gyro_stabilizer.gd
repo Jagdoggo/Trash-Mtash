@@ -6,5 +6,5 @@ class_name Gyro_stabilizer
 
 func _process(delta: float) -> void:
 	if vehicle.total_power_used >= 0 and not player.building and player.driving:
-		vehicle.rotation.x = 89
+		vehicle.rotation.x = 0
 		vehicle.rotation.z = 0

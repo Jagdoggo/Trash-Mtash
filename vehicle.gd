@@ -36,7 +36,7 @@ func _input(event: InputEvent) -> void:
 					camera_arm.spring_length += event.factor * scroll_sens
 				camera_arm.spring_length = clamp(camera_arm.spring_length,1,15)
 
-func  _process(_delta: float) -> void:
+func  _process(delta: float) -> void:
 	if position.y < -10:
 		position.y = 5
 	$Group.visible = player and player.driving and not player.building and not freeze and total_power_used >= 0
@@ -73,7 +73,7 @@ func  _process(_delta: float) -> void:
 		if flipped_steer:
 			steer *= -1
 		engine_force = drive
-		steering = deg_to_rad(steer)
+		steering = move_toward(steering,deg_to_rad(steer),delta*4)
 	else:
 		engine_sfx.volume_db = -INF
 

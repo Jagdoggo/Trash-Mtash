@@ -196,13 +196,8 @@ func despawn_chunk(chunk: Vector2i) -> void:
 				var trash_mesh : MeshInstance3D = MeshInstance3D.new()
 				trash_mesh.mesh = trash_meshes[trash.get_meta("t_index")]
 				trash.add_child(trash_mesh)
-				trash.sleeping = false
 				trash.get_node("VisibleOnScreenEnabler3D").free()
 				trash.process_mode = Node.PROCESS_MODE_ALWAYS
-				trash.freeze = false
-				trash.is_magneted = false
-				trash.collision_mask = 1
-				trash.collision_layer = 1
 				trash.reparent(self)
 	loaded_chunks[chunk].queue_free()
 	loaded_chunks.erase(chunk)

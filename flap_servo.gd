@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 				running = false
 			else:
 				current_node = current_node.get_parent()
-	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not player.building and player.driving:
+	if vehicle.group_id == group_id and vehicle.total_power_used >= 0 and not player.building and player.driving and not vehicle.freeze:
 		var input = float(Input.get_axis(positive_action,negative_action))
 		if rotation_point:
 			rotation_point.rotation_degrees.x += delta * speed * input
