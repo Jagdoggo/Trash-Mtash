@@ -287,6 +287,7 @@ func _physics_process(delta: float) -> void:
 				global_rotation = vehicle.seat.global_rotation
 				position = vehicle.seat.global_position + (Vector3(0,0.5,0) * vehicle.basis.inverse())
 			else:
+				global_rotation = vehicle.global_rotation
 				position = vehicle.position + (Vector3(0,1.3,0) * vehicle.basis.inverse())
 	move_and_slide()
 
