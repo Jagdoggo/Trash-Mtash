@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dhqytp2ra56v0"]
+
+[ext_resource type="Script" uid="uid://d1spia3l51sdx" path="res://gyro.gd" id="1_wa1jx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjmkp"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yqgst"]
+material = SubResource("StandardMaterial3D_wjmkp")
+
+[sub_resource type="SphereMesh" id="SphereMesh_0v4xe"]
+radius = 0.05
+height = 0.1
+
+[node name="W S Gyro" type="CollisionShape3D" unique_id=767567029]
+shape = SubResource("BoxShape3D_qrhk2")
+script = ExtResource("1_wa1jx")
+negative_action = "backward"
+positive_action = "forward"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+mesh = SubResource("BoxMesh_yqgst")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=957769606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1, 0)
+mesh = SubResource("SphereMesh_0v4xe")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1595663528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1, 0)
+mesh = SubResource("SphereMesh_0v4xe")

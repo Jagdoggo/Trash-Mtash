@@ -21,7 +21,7 @@ var part_id : int = 0
 var group_id : int = 0
 
 func _ready() -> void:
-	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0]
+	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -117,7 +117,7 @@ func _process(_delta: float) -> void:
 				if part is Servo:
 					current_parent = part.rotation_point
 					part.group_id = group_id
-				if part is Wing or part is Propeller or part is Servo or part is Stabilizer or part is Gyro_stabilizer:
+				if part is Wing or part is Propeller or part is Servo or part is Stabilizer or part is Gyro_stabilizer or part is Gyro:
 					part.vehicle = vehicle
 					if (not part is Wing) and (not part is Stabilizer):
 						part.player = player

@@ -74,7 +74,7 @@ func load_save():
 				builder.vehicle.total_power_used -= builder.power_used[index]
 				if block is Servo:
 					block.group_id = part[9]
-				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer: 
+				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer or block is Gyro: 
 					block.vehicle = builder.get_node("Vehicle")
 					if not block is Wing and not block is Stabilizer:
 						block.player = self

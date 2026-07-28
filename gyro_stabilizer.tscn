@@ -5,10 +5,14 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wjmkp"]
-albedo_color = Color(0, 0, 1, 1)
+albedo_color = Color(0.18549618, 0.41620854, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_yqgst"]
 material = SubResource("StandardMaterial3D_wjmkp")
+
+[sub_resource type="SphereMesh" id="SphereMesh_uwixt"]
+radius = 0.05
+height = 0.1
 
 [node name="Gyro Stabilizer" type="CollisionShape3D" unique_id=767567029]
 shape = SubResource("BoxShape3D_qrhk2")
@@ -16,3 +20,11 @@ script = ExtResource("1_uwixt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
 mesh = SubResource("BoxMesh_yqgst")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1573704634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.278354e-08, 1, -0.75)
+mesh = SubResource("SphereMesh_uwixt")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=181933732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.278354e-08, 1, 0.75)
+mesh = SubResource("SphereMesh_uwixt")
