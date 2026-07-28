@@ -7,6 +7,7 @@ extends Control
 @onready var tutorial: CheckButton = $Buttons/Tutorial
 @onready var file_dialog: FileDialog = $FileDialog
 @onready var imported: Label = $Buttons/Imported
+@onready var trash: CheckButton = $Buttons/Trash
 
 # Keep a class-level reference to the callback so the garbage collector doesn't clear it
 var web_import_callback: JavaScriptObject
@@ -224,6 +225,7 @@ func delete():
 func _on_play_pressed() -> void:
 	Save.save_path = "user://" + savegame_path_prefix + save_file_name.text + ".json"
 	Save.is_tutorial = tutorial.button_pressed
+	Save.trash_disabled = trash.button_pressed
 	get_tree().change_scene_to_file(main_scene_path)
 
 func _on_reset_pressed() -> void: 

@@ -37,6 +37,11 @@ placeholder_text = "Save File Name"
 layout_mode = 2
 text = "Tutorial"
 
+[node name="Trash" type="CheckButton" parent="Buttons" unique_id=1361562599]
+layout_mode = 2
+text = "Disable Trash
+"
+
 [node name="Play" type="Button" parent="Buttons" unique_id=113883706]
 layout_mode = 2
 text = "Play"

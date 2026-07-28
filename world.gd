@@ -14,7 +14,7 @@ class chunk_clear_progress:
 @export var trash_per_pile : int = 80
 @export var piles_per_chunk : int = 3
 @export var pile_varitation : float = 1
-@export var clear_zone_radius : int = 2
+@export var clear_zone_radius : int = 3
 @export var less_zone_radius : int = 4
 @export var save_file_name : String
 @export var pile_positions : Array[Vector3]
@@ -34,6 +34,8 @@ func _ready() -> void:
 		trash_scenes.size() == trash_meshes.size(),
 		"trash_scenes and trash_meshes must have the same size"
 	)
+	if Save.trash_disabled:
+		clear_zone_radius = 100000
 	player.position.x = (chunk_size / 2) - 7
 	player.position.z = (chunk_size / 2)
 	$"Recycling Centre".position.x = chunk_size / 2
