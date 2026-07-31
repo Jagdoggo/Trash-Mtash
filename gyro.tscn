@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://n1w38jch06nm"]
+[gd_scene format=3 uid="uid://dhqytp2ra56v0"]
 
-[ext_resource type="Script" uid="uid://d1spia3l51sdx" path="res://gyro.gd" id="1_w5jab"]
+[ext_resource type="Script" uid="uid://d1spia3l51sdx" path="res://gyro.gd" id="1_mjc87"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
 
@@ -14,11 +14,9 @@ material = SubResource("StandardMaterial3D_wjmkp")
 radius = 0.05
 height = 0.1
 
-[node name="A D Gyro" type="CollisionShape3D" unique_id=767567029]
+[node name="Gyro" type="CollisionShape3D" unique_id=767567029]
 shape = SubResource("BoxShape3D_qrhk2")
-script = ExtResource("1_w5jab")
-negative_action = "left"
-positive_action = "right"
+script = ExtResource("1_mjc87")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
 mesh = SubResource("BoxMesh_yqgst")

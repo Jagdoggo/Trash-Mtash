@@ -5,8 +5,12 @@ class_name Magnet
 
 var active : bool = true
 var is_picking_up : bool = false
+@export var actions : Array[String] = ["toggle magnet"]
 
 @onready var magnet_sfx: AudioStreamPlayer3D = $SFX
+
+func _ready() -> void:
+	set_meta("actions",1)
 
 func _process(delta: float) -> void:
 	if "Duplicate" in name:
@@ -15,7 +19,7 @@ func _process(delta: float) -> void:
 		return
 	if player.building:
 		return
-	if Input.is_action_just_pressed("toggle magnet"):
+	if Input.is_action_just_pressed(actions[0]):
 		if active:
 			magnet_sfx.stop()
 			detatch()

@@ -1,19 +1,19 @@
-[gd_scene format=4 uid="uid://db3ms30hev5ec"]
+[gd_scene format=4 uid="uid://bg15x0ma3f10m"]
 
-[ext_resource type="Script" uid="uid://6tuq7thj6036" path="res://flap_servo.gd" id="1_3ducx"]
-[ext_resource type="Texture2D" uid="uid://by54fb2yh013c" path="res://textures/Servo.png" id="2_1k66v"]
+[ext_resource type="Script" uid="uid://6tuq7thj6036" path="res://flap_servo.gd" id="1_juoiv"]
+[ext_resource type="Texture2D" uid="uid://by54fb2yh013c" path="res://textures/Servo.png" id="2_550pm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u7oo3"]
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ob6jj"]
 resource_name = "m_521c0a7d-b830-3bfa-0e44-31ff53bf0e8d"
-albedo_texture = ExtResource("2_1k66v")
+albedo_texture = ExtResource("2_550pm")
 texture_filter = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_duojf"]
 resource_name = "m_521c0a7d-b830-3bfa-0e44-31ff53bf0e8d"
-albedo_texture = ExtResource("2_1k66v")
+albedo_texture = ExtResource("2_550pm")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_sojky"]
 _surfaces = [{
@@ -90,11 +90,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sojky")
 
-[node name="Aileron Flap Servo" type="CollisionShape3D" unique_id=767567029 node_paths=PackedStringArray("rotation_point")]
+[node name="Flap Servo" type="CollisionShape3D" unique_id=767567029 node_paths=PackedStringArray("rotation_point")]
 shape = SubResource("BoxShape3D_u7oo3")
-script = ExtResource("1_3ducx")
-positive_action = "left"
-negative_action = "right"
+script = ExtResource("1_juoiv")
+limit = 20.0
 rotation_point = NodePath("Rotation Point")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]

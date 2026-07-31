@@ -16,13 +16,20 @@
 [ext_resource type="PackedScene" uid="uid://cdr386sy7slcc" path="res://wing.tscn" id="12_cn3w5"]
 [ext_resource type="PackedScene" uid="uid://dp2alr137w1fe" path="res://propeller.tscn" id="13_3bdxq"]
 [ext_resource type="AudioStream" uid="uid://b87dgc7jpjq3t" path="res://textures/enigne.mp3" id="14_1iedm"]
-[ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://elevator_flap_servo.tscn" id="14_wsqv1"]
+[ext_resource type="PackedScene" uid="uid://bg15x0ma3f10m" path="res://flap_servo.tscn" id="14_wsqv1"]
 [ext_resource type="PackedScene" uid="uid://beatfhr6xs78x" path="res://stabilizer.tscn" id="15_yh0p0"]
-[ext_resource type="PackedScene" uid="uid://db3ms30hev5ec" path="res://aileron_flap_servo.tscn" id="16_o6x4r"]
 [ext_resource type="PackedScene" uid="uid://di7wbvng6ycq1" path="res://gyro_stabilizer.tscn" id="17_gcgou"]
 [ext_resource type="PackedScene" uid="uid://x1auqy427uy1" path="res://parent_preview.tscn" id="17_yd55b"]
-[ext_resource type="PackedScene" uid="uid://n1w38jch06nm" path="res://a_d_gyro.tscn" id="18_n7uif"]
-[ext_resource type="PackedScene" uid="uid://dhqytp2ra56v0" path="res://w_s_gyro.tscn" id="19_snrnk"]
+[ext_resource type="PackedScene" uid="uid://dtyo58kyncgfu" path="res://distance_sensor.tscn" id="18_ou310"]
+[ext_resource type="PackedScene" uid="uid://dhqytp2ra56v0" path="res://gyro.tscn" id="19_snrnk"]
+[ext_resource type="PackedScene" uid="uid://bvg6xlftm5mq2" path="res://rebind_preview_1.tscn" id="21_q82xu"]
+[ext_resource type="PackedScene" uid="uid://bedo8x5y82jyw" path="res://rebind_preview_2.tscn" id="22_nch85"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_q82xu"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nch85"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m8ww"]
 transparency = 1
@@ -64,12 +71,21 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("16_o6x4r"), ExtResource("15_yh0p0"), ExtResource("17_gcgou"), ExtResource("18_n7uif"), ExtResource("19_snrnk")])
-part_limits = Array[float]([5.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 0, 3, 3, 3])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0"), ExtResource("17_gcgou"), ExtResource("19_snrnk"), ExtResource("18_ou310")])
+part_limits = Array[float]([7.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 3, 3, 2])
+rebindable_actions = Array[String](["w", "a", "s", "d", "shift", "ctrl", "[", "]", "q", "e", "r", "t", "space", "3", "4", "5", "6", "7", "8", "9", "0"])
 
 [node name="Parent Preview" parent="." unique_id=204736288 instance=ExtResource("17_yd55b")]
 visible = false
+
+[node name="Rebind Preview 1" parent="." unique_id=1193492477 instance=ExtResource("21_q82xu")]
+visible = false
+texture = SubResource("ViewportTexture_q82xu")
+
+[node name="Rebind Preview 2" parent="." unique_id=90701329 instance=ExtResource("22_nch85")]
+visible = false
+texture = SubResource("ViewportTexture_nch85")
 
 [node name="Preview" parent="." unique_id=1109257643 instance=ExtResource("2_clihi")]
 
@@ -105,21 +121,6 @@ stream = ExtResource("14_1iedm")
 autoplay = true
 bus = &"Sounds"
 metadata/non = false
-
-[node name="Group" type="Label" parent="Vehicle" unique_id=1069601730]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -23.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Servo Group:"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Camera Arm" type="Node3D" parent="." unique_id=174607145]
 
@@ -165,16 +166,6 @@ vertical_alignment = 1
 [node name="VSeparator2" type="VSeparator" parent="UI/HBoxContainer" unique_id=209809236]
 layout_mode = 2
 
-[node name="Servo Group" type="Label" parent="UI/HBoxContainer" unique_id=818291337]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
-text = "Servo Group"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VSeparator3" type="VSeparator" parent="UI/HBoxContainer" unique_id=771179955]
-layout_mode = 2
-
 [node name="Parts Left" type="Label" parent="UI/HBoxContainer" unique_id=247635172]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_3uvuy")
@@ -182,7 +173,7 @@ text = "Parts Left"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VSeparator4" type="VSeparator" parent="UI/HBoxContainer" unique_id=250287824]
+[node name="VSeparator3" type="VSeparator" parent="UI/HBoxContainer" unique_id=250287824]
 layout_mode = 2
 
 [node name="Net Power" type="Label" parent="UI/HBoxContainer" unique_id=683005953]

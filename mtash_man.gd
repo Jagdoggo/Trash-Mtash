@@ -72,12 +72,13 @@ func load_save():
 				block.set_meta("parent_pid", part[8])
 				parts[pid] = block
 				builder.vehicle.total_power_used -= builder.power_used[index]
-				if block is Servo:
-					block.group_id = part[9]
 				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer or block is Gyro: 
 					block.vehicle = builder.get_node("Vehicle")
 					if not block is Wing and not block is Stabilizer:
 						block.player = self
+				if part.size() > 9:
+					print(block.actions)
+					block.actions.assign(part[9])
 				if block is Magnet:
 					block.player = self
 				if index == 4:
@@ -137,8 +138,8 @@ func vehcicle_save_recurse(current_node : Node3D):
 		data_arr.append(current_node.rotation.y)
 		data_arr.append(current_node.rotation.z)
 		data_arr.append(current_node.get_meta("parent_pid"))
-		if current_node is Servo:
-			data_arr.append(current_node.group_id)
+		if current_node.has_meta("actions"):
+			data_arr.append(current_node.actions)
 		vehicle_data.append(data_arr)
 	for child in current_node.get_children():
 		vehcicle_save_recurse(child)

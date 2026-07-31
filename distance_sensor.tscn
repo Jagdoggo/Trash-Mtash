@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dtyo58kyncgfu"]
+
+[ext_resource type="Script" uid="uid://8jfodmu8oy00" path="res://distance_sensor.gd" id="1_i2p1x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_74yxu"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fltp7"]
+material = SubResource("StandardMaterial3D_74yxu")
+
+[sub_resource type="SphereMesh" id="SphereMesh_yn686"]
+radius = 0.05
+height = 0.1
+
+[node name="Distance Sensor" type="CollisionShape3D" unique_id=767567029]
+shape = SubResource("BoxShape3D_qrhk2")
+script = ExtResource("1_i2p1x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_fltp7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=287894162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("SphereMesh_yn686")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=250134008]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.475, 0)
+target_position = Vector3(0, -10, 0)

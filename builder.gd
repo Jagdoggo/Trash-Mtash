@@ -7,6 +7,7 @@ class_name Builder
 @export var player : Player
 @export var part_limits : Array[float]
 @export var power_used : Array[int]
+@export var rebindable_actions : Array[String]
 
 @onready var vehicle: VehicleBody3D = $Vehicle
 @onready var camera_arm: Node3D = $"Camera Arm"
@@ -14,14 +15,17 @@ class_name Builder
 @onready var preview: MeshInstance3D = $Preview
 @onready var current_parent : Node3D = $Vehicle
 @onready var parent_preview: MeshInstance3D = $"Parent Preview"
+@onready var rebind_preview_1: Sprite3D = $"Rebind Preview 1"
+@onready var rebind_preview_2: Sprite3D = $"Rebind Preview 2"
 
 var current_block_index : int = 0
 var arr : Array[Node3D]
 var part_id : int = 0
 var group_id : int = 0
+var awaiting_press_type : int = 0
 
 func _ready() -> void:
-	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0,0,0]
+	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -43,9 +47,24 @@ func _process(_delta: float) -> void:
 			part_limits[i] += 1000
 	$UI.visible = player.building
 	if player.building:
+		if Input.is_action_just_pressed("rebind action 1"):
+			awaiting_press_type = 1
+		if Input.is_action_just_pressed("rebind action 2"):
+			awaiting_press_type = 2
+		if awaiting_press_type != 0:
+			for i in range(rebindable_actions.size()):
+				if Input.is_action_just_pressed(rebindable_actions[i]):
+					print("Action pressed: " + rebindable_actions[i])
+					check_nearby_nodes(rebind_key,[rebindable_actions[i],awaiting_press_type])
+					awaiting_press_type = 0
+					return
 		var inpupt_dir : Vector2 = Vector2(int(Input.is_action_just_pressed("right")) - int(Input.is_action_just_pressed("left")),int(Input.is_action_just_pressed("backward")) - int(Input.is_action_just_pressed("forward")))
 		inpupt_dir = inpupt_dir.rotated(deg_to_rad(-round(camera_arm.rotation_degrees.y/90)*90))
 		preview.position += Vector3(inpupt_dir.x,0,inpupt_dir.y)
+		rebind_preview_1.position = preview.position + Vector3.UP
+		rebind_preview_2.position = preview.position + Vector3.UP
+		rebind_preview_1.visible = awaiting_press_type == 1
+		rebind_preview_2.visible = awaiting_press_type == 2
 		if Input.is_action_just_pressed("move down"):
 			preview.position.y -= 1
 		if Input.is_action_just_pressed("move up"):
@@ -66,11 +85,6 @@ func _process(_delta: float) -> void:
 			current_parent = $Vehicle
 		if not current_parent:
 			current_parent = $Vehicle
-		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
-		group_id += group_change_input
-		if group_id < 0:
-			group_id = 0
-		$"UI/HBoxContainer/Servo Group".text = "Current Servo Group: " + str(group_id)
 		camera_arm.position = preview.position
 		current_block_index = clamp(current_block_index,0,blocks.size() - 1)
 		var tmp_part = blocks[current_block_index].instantiate()
@@ -116,7 +130,6 @@ func _process(_delta: float) -> void:
 					$Vehicle.reparented_parts.append(reparent_duplicate)
 				if part is Servo:
 					current_parent = part.rotation_point
-					part.group_id = group_id
 				if part is Wing or part is Propeller or part is Servo or part is Stabilizer or part is Gyro_stabilizer or part is Gyro:
 					part.vehicle = vehicle
 					if (not part is Wing) and (not part is Stabilizer):
@@ -125,6 +138,11 @@ func _process(_delta: float) -> void:
 					part.player = player
 				if current_block_index == 4:
 					vehicle.seat = part
+
+func rebind_key(node : Node3D,action : String, action_index : int):
+	if node.has_meta("actions"):
+		print(action_index)
+		node.actions[action_index-1] = action
 
 func rotate_node(node : Node3D,x : int, y : int, z : int):
 	node.rotate_y(y * 1.5708)

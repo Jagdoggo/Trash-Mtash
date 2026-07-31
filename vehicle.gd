@@ -39,9 +39,7 @@ func _input(event: InputEvent) -> void:
 func  _process(delta: float) -> void:
 	if position.y < -10:
 		position.y = 5
-	$Group.visible = player and player.driving and not player.building and not freeze and total_power_used >= 0
 	if player and player.driving and not player.building and not freeze and total_power_used >= 0:
-		$Group.text = "Servo Group: " + str(group_id)
 		engine_sfx.volume_db = 0
 		var new_linear = linear_velocity
 		new_linear.y = 0
@@ -51,10 +49,6 @@ func  _process(delta: float) -> void:
 			0.8,
 			2.0
 		)
-		var group_change_input : int = int(Input.is_action_just_pressed("change active group right")) - int(Input.is_action_just_pressed("change active group left"))
-		group_id += group_change_input
-		if group_id < 0:
-			group_id = 0
 		reposition.call_deferred()
 		if Input.is_action_just_pressed("switch drive dir"):
 			if flipped:
