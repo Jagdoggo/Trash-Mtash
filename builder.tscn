@@ -21,14 +21,21 @@
 [ext_resource type="PackedScene" uid="uid://di7wbvng6ycq1" path="res://gyro_stabilizer.tscn" id="17_gcgou"]
 [ext_resource type="PackedScene" uid="uid://x1auqy427uy1" path="res://parent_preview.tscn" id="17_yd55b"]
 [ext_resource type="PackedScene" uid="uid://dtyo58kyncgfu" path="res://distance_sensor.tscn" id="18_ou310"]
+[ext_resource type="PackedScene" uid="uid://5klbtrhr60s7" path="res://or_gate.tscn" id="19_nch85"]
 [ext_resource type="PackedScene" uid="uid://dhqytp2ra56v0" path="res://gyro.tscn" id="19_snrnk"]
+[ext_resource type="PackedScene" uid="uid://dajhx8w7xqsgt" path="res://and_gate.tscn" id="20_ve8qn"]
+[ext_resource type="PackedScene" uid="uid://chmpqaxte7sw3" path="res://not_gate.tscn" id="21_ak5pp"]
 [ext_resource type="PackedScene" uid="uid://bvg6xlftm5mq2" path="res://rebind_preview_1.tscn" id="21_q82xu"]
 [ext_resource type="PackedScene" uid="uid://bedo8x5y82jyw" path="res://rebind_preview_2.tscn" id="22_nch85"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_q82xu"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="PackedScene" uid="uid://cra5rc2op5nlc" path="res://rebind_preview_3.tscn" id="22_q82xu"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_nch85"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ve8qn"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ak5pp"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8m8ww"]
@@ -71,21 +78,25 @@ expand_margin_bottom = 4.0
 
 [node name="Builder" type="Node3D" unique_id=667126995]
 script = ExtResource("1_h1ki1")
-blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0"), ExtResource("17_gcgou"), ExtResource("19_snrnk"), ExtResource("18_ou310")])
-part_limits = Array[float]([7.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
-power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 3, 3, 2])
-rebindable_actions = Array[String](["w", "a", "s", "d", "shift", "ctrl", "[", "]", "q", "e", "r", "t", "space", "3", "4", "5", "6", "7", "8", "9", "0"])
+blocks = Array[PackedScene]([ExtResource("3_nebbf"), ExtResource("4_h00wr"), ExtResource("5_ucbhk"), ExtResource("5_gtodl"), ExtResource("6_3uvuy"), ExtResource("7_u3nas"), ExtResource("8_ewt2b"), ExtResource("9_ewt2b"), ExtResource("10_j0mst"), ExtResource("11_7qxjf"), ExtResource("12_cn3w5"), ExtResource("13_3bdxq"), ExtResource("14_wsqv1"), ExtResource("15_yh0p0"), ExtResource("17_gcgou"), ExtResource("19_snrnk"), ExtResource("18_ou310"), ExtResource("19_nch85"), ExtResource("20_ve8qn"), ExtResource("21_ak5pp")])
+part_limits = Array[float]([7.0, 2.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+power_used = Array[int]([0, 1, 1, 2, 0, 0, 0, 1, -1, -6, 0, 1, 2, 0, 3, 3, 2, 1, 1, 1])
+rebindable_actions = Array[String](["w", "a", "s", "d", "shift", "ctrl", "[", "]", "q", "e", "r", "t", "space", "4", "5", "6", "7", "8", "9", "0"])
 
 [node name="Parent Preview" parent="." unique_id=204736288 instance=ExtResource("17_yd55b")]
 visible = false
 
 [node name="Rebind Preview 1" parent="." unique_id=1193492477 instance=ExtResource("21_q82xu")]
 visible = false
-texture = SubResource("ViewportTexture_q82xu")
+texture = SubResource("ViewportTexture_nch85")
 
 [node name="Rebind Preview 2" parent="." unique_id=90701329 instance=ExtResource("22_nch85")]
 visible = false
-texture = SubResource("ViewportTexture_nch85")
+texture = SubResource("ViewportTexture_ve8qn")
+
+[node name="Rebind Preview 3" parent="." unique_id=2043704825 instance=ExtResource("22_q82xu")]
+visible = false
+texture = SubResource("ViewportTexture_ak5pp")
 
 [node name="Preview" parent="." unique_id=1109257643 instance=ExtResource("2_clihi")]
 

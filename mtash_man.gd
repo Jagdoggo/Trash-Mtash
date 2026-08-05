@@ -142,7 +142,8 @@ func vehcicle_save_recurse(current_node : Node3D):
 			data_arr.append(current_node.actions)
 		vehicle_data.append(data_arr)
 	for child in current_node.get_children():
-		vehcicle_save_recurse(child)
+		if child is Node3D:
+			vehcicle_save_recurse(child)
 
 func save():
 	var dir = FileAccess.open(Save.save_path, FileAccess.WRITE)

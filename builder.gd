@@ -17,6 +17,7 @@ class_name Builder
 @onready var parent_preview: MeshInstance3D = $"Parent Preview"
 @onready var rebind_preview_1: Sprite3D = $"Rebind Preview 1"
 @onready var rebind_preview_2: Sprite3D = $"Rebind Preview 2"
+@onready var rebind_preview_3: Sprite3D = $"Rebind Preview 3"
 
 var current_block_index : int = 0
 var arr : Array[Node3D]
@@ -25,7 +26,7 @@ var group_id : int = 0
 var awaiting_press_type : int = 0
 
 func _ready() -> void:
-	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0,0]
+	part_limits = [7,2,2,0,1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0]
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event: InputEvent) -> void:
@@ -51,10 +52,11 @@ func _process(_delta: float) -> void:
 			awaiting_press_type = 1
 		if Input.is_action_just_pressed("rebind action 2"):
 			awaiting_press_type = 2
+		if Input.is_action_just_pressed("rebind action 3"):
+			awaiting_press_type = 3
 		if awaiting_press_type != 0:
 			for i in range(rebindable_actions.size()):
 				if Input.is_action_just_pressed(rebindable_actions[i]):
-					print("Action pressed: " + rebindable_actions[i])
 					check_nearby_nodes(rebind_key,[rebindable_actions[i],awaiting_press_type])
 					awaiting_press_type = 0
 					return
@@ -63,8 +65,10 @@ func _process(_delta: float) -> void:
 		preview.position += Vector3(inpupt_dir.x,0,inpupt_dir.y)
 		rebind_preview_1.position = preview.position + Vector3.UP
 		rebind_preview_2.position = preview.position + Vector3.UP
+		rebind_preview_3.position = preview.position + Vector3.UP
 		rebind_preview_1.visible = awaiting_press_type == 1
 		rebind_preview_2.visible = awaiting_press_type == 2
+		rebind_preview_3.visible = awaiting_press_type == 3
 		if Input.is_action_just_pressed("move down"):
 			preview.position.y -= 1
 		if Input.is_action_just_pressed("move up"):
@@ -141,7 +145,6 @@ func _process(_delta: float) -> void:
 
 func rebind_key(node : Node3D,action : String, action_index : int):
 	if node.has_meta("actions"):
-		print(action_index)
 		node.actions[action_index-1] = action
 
 func rotate_node(node : Node3D,x : int, y : int, z : int):

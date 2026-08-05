@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://5klbtrhr60s7"]
+
+[ext_resource type="Script" uid="uid://csqovelod04jy" path="res://or_gate.gd" id="1_kc3gu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_74yxu"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fltp7"]
+material = SubResource("StandardMaterial3D_74yxu")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yn686"]
+viewport_path = NodePath("Rebind Preview 1/SubViewport")
+
+[node name="OR gate" type="CollisionShape3D" unique_id=767567029]
+shape = SubResource("BoxShape3D_qrhk2")
+script = ExtResource("1_kc3gu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_fltp7")
+
+[node name="Rebind Preview 1" type="Sprite3D" parent="." unique_id=1193492477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_yn686")
+
+[node name="SubViewport" type="SubViewport" parent="Rebind Preview 1" unique_id=535895775]
+transparent_bg = true
+
+[node name="Label" type="Label" parent="Rebind Preview 1/SubViewport" unique_id=159851605]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "OR"
+horizontal_alignment = 1
+vertical_alignment = 1
