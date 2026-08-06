@@ -72,7 +72,7 @@ func load_save():
 				block.set_meta("parent_pid", part[8])
 				parts[pid] = block
 				builder.vehicle.total_power_used -= builder.power_used[index]
-				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer or block is Gyro: 
+				if block is Wing or block is Servo or block is Propeller or block is Stabilizer or block is Gyro_stabilizer or block is Gyro or block is Movment_Detecotor or block is N_Gate or block is O_Gate or block is A_Gate: 
 					block.vehicle = builder.get_node("Vehicle")
 					if not block is Wing and not block is Stabilizer:
 						block.player = self

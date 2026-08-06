@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://dtyo58kyncgfu"]
+[gd_scene format=3 uid="uid://cu7cn0qfmhjoq"]
 
-[ext_resource type="Script" uid="uid://8jfodmu8oy00" path="res://distance_sensor.gd" id="1_i2p1x"]
+[ext_resource type="Script" uid="uid://tkcy2v3hhtov" path="res://movement_detector.gd" id="1_tww5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qrhk2"]
 
@@ -14,34 +14,30 @@ material = SubResource("StandardMaterial3D_74yxu")
 radius = 0.05
 height = 0.1
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i2p1x"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_yqxmb"]
 viewport_path = NodePath("Rebind Preview 1/SubViewport")
 
-[node name="Distance Sensor" type="CollisionShape3D" unique_id=767567029]
+[node name="Movement Detector" type="CollisionShape3D" unique_id=767567029]
 shape = SubResource("BoxShape3D_qrhk2")
-script = ExtResource("1_i2p1x")
+script = ExtResource("1_tww5k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=647300879]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_fltp7")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=287894162]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("SphereMesh_yn686")
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=250134008]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.475, 0)
-target_position = Vector3(0, -10, 0)
-
-[node name="Rebind Preview 1" type="Sprite3D" parent="." unique_id=1828482008]
+[node name="Rebind Preview 1" type="Sprite3D" parent="." unique_id=1893683885]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 billboard = 1
-texture = SubResource("ViewportTexture_i2p1x")
+texture = SubResource("ViewportTexture_yqxmb")
 
-[node name="SubViewport" type="SubViewport" parent="Rebind Preview 1" unique_id=1945322457]
+[node name="SubViewport" type="SubViewport" parent="Rebind Preview 1" unique_id=833713400]
 transparent_bg = true
 
-[node name="Label" type="Label" parent="Rebind Preview 1/SubViewport" unique_id=1006120834]
+[node name="Label" type="Label" parent="Rebind Preview 1/SubViewport" unique_id=1382811906]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -54,6 +50,6 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-text = "Distance sensor"
+text = "Movement Detector"
 horizontal_alignment = 1
 vertical_alignment = 1
